@@ -1,5 +1,6 @@
 import java.io.*;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.TreeSet;
 import stored_classes.Flat;
 
@@ -18,7 +19,12 @@ public class Main {
            line = br.readLine();
            while (line != null) {
                lineData = line.split(",");
-
+               int id = Integer.parseInt(lineData[0]);
+               String name = lineData[1];
+               int x = Integer.parseInt(lineData[2]);
+               int y = Integer.parseInt(lineData[3]);
+               Date date = new Date();
+               System.out.println(date);
                line = br.readLine();
            }
         }
