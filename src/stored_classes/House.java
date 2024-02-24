@@ -12,4 +12,8 @@ public class House {
         this.numberOfFloors = numberOfFloors;
         this.numberOfLifts = numberOfLifts;
     }
+    @Override
+    public String toString() {
+        return "name = " + name + ", year = " + year + ", number_of_floors = " + numberOfFloors + ", number_of_lifts = " + numberOfLifts;
+    }
 }
