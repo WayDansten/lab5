@@ -10,9 +10,8 @@ public enum Transport {
     ENOUGH;
     public static final Map<String, Transport> naming = new HashMap<>();
     static {
-        naming.put("FEW", FEW);
-        naming.put("LITTLE", LITTLE);
-        naming.put("NORMAL", NORMAL);
-        naming.put("ENOUGH", ENOUGH);
+        for (Transport transport : Transport.values()) {
+            naming.put(transport.name(), transport);
+        }
     }
 }

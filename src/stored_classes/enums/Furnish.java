@@ -4,17 +4,22 @@ import java.util.HashMap;
 import java.util.Map;
 
 public enum Furnish {
-    DESIGNER,
-    NONE,
-    FINE,
-    BAD,
-    LITTLE;
+    DESIGNER (4),
+    NONE (0),
+    FINE (3),
+    BAD (1),
+    LITTLE (2);
+    final int quality;
+    private Furnish(int quality) {
+        this.quality = quality;
+    }
+    public int getQuality() {
+        return quality;
+    }
     public static final Map<String, Furnish> naming = new HashMap<>();
     static {
-        naming.put("NONE", NONE);
-        naming.put("BAD", BAD);
-        naming.put("FINE", FINE);
-        naming.put("LITTLE", LITTLE);
-        naming.put("DESIGNER", DESIGNER);
+        for (Furnish furnish : Furnish.values()) {
+            naming.put(furnish.name(), furnish);
+        }
     }
 }

@@ -3,13 +3,17 @@ package management.utility;
 import exceptions.WrongInputException;
 import management.commands.*;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
 
 public class Invoker {
-    CollectionManager cm = new CollectionManager();
+    private final CollectionManager cm = new CollectionManager();
     static boolean actuator = false;
     private static final ArrayList<String> commandHistory = new ArrayList<>();
     Map<String, Command> commands = new HashMap<>();
@@ -22,7 +26,10 @@ public class Invoker {
     commands.put("info", new InfoCommand(cm));
     commands.put("remove_greater", new RemoveGreaterCommand(cm));
     commands.put("remove_lower",  new RemoveLowerCommand(cm));
-    commands.put("history", new HistoryCommand(cm));}
+    commands.put("history", new HistoryCommand(cm));
+    commands.put("save", new SaveCommand(cm));
+    commands.put("filter_less_than_furnish", new FilterLessThanFurnishCommand(cm));
+    commands.put("count_greater_than_house", new CountGreaterThanHouseCommand(cm));}
     static Scanner receiver = new Scanner(System.in);
     static {
         receiver.useDelimiter("\n");
@@ -59,7 +66,16 @@ public class Invoker {
     public static Scanner getReceiver() {
         return receiver;
     }
+    public static void interactiveMode() {
+        Invoker.receiver = new Scanner(System.in);
+    }
+    public static void fileMode(File file) throws FileNotFoundException {
+            Invoker.receiver = new Scanner(file);
+    }
     public static ArrayList<String> getCommandHistory() {
         return commandHistory;
+    }
+    public CollectionManager getCollectionManager() {
+        return cm;
     }
 }

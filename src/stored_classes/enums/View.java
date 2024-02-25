@@ -11,10 +11,8 @@ public enum View {
     NORMAL;
     public static final Map<String, View> naming = new HashMap<>();
     static {
-        naming.put("BAD", BAD);
-        naming.put("STREET", STREET);
-        naming.put("YARD", YARD);
-        naming.put("NORMAL", NORMAL);
-        naming.put("PARK", PARK);
+        for (View view : View.values()) {
+            naming.put(view.name(), view);
+        }
     }
 }

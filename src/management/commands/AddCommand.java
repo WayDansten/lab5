@@ -11,5 +11,6 @@ public class AddCommand implements Command {
     @Override
     public void execute(String... args) {
         cm.add(new FlatBuilder().build());
+        System.out.println("Квартира успешно добавлена!");
     }
 }

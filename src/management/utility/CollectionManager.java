@@ -3,16 +3,21 @@ package management.utility;
 import builders.FlatBuilder;
 import stored_classes.Flat;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.TreeSet;
+
+import static management.utility.Parser.parseFlat;
 
 public class CollectionManager {
     TreeSet<Flat> flats = new TreeSet<>();
     Date initDate = new Date();
     public void add(Flat flat) {
         flats.add(flat);
-        System.out.println("Квартира успешно добавлена!");
     }
     public void removeById(int id) {
         boolean foundId = false;
@@ -72,6 +77,42 @@ public class CollectionManager {
                 } else {
                     break;
                 }
+            }
+        }
+    }
+    public void fillCollection(File file) throws FileNotFoundException {
+        Invoker.fileMode(file);
+        while (Invoker.getReceiver().hasNext()) {
+            flats.add(parseFlat(Invoker.getReceiver().next().split(",")));
+        }
+    }
+    public void saveCollection(File file) throws IOException {
+        try (FileWriter writer = new FileWriter(file)) {
+            for (Flat flat : flats) {
+                writer.write(Unparser.FlatToCSV(flat));
+            }
+        }
+    }
+    public void countGreaterThanHouse(long year) {
+        int counter = 0;
+        for (Flat flat : flats) {
+            if (flat.getHouse().getYear() > year) {
+                counter++;
+            }
+        }
+            System.out.println(counter);
+    }
+    public void filterLessThanFurnish(int quality) {
+        for (Flat flat : flats) {
+            if (flat.getFurnish().getQuality() < quality) {
+                System.out.println(flat);
+            }
+        }
+    }
+    public void update(int id) {
+        for (Flat flat : flats) {
+            if (flat.getId() == id) {
+
             }
         }
     }

@@ -85,6 +85,25 @@ public class Flat implements Comparable<Flat> {
         return creationDate;
     }
 
+    public void setName(String name) {
+        this.name = name;
+    }
+    public void setArea(double area) {
+        this.area = area;
+    }
+    public void setFurnish(Furnish furnish) {
+        this.furnish = furnish;
+    }
+    public void setNumberOfRooms(Integer numberOfRooms) {
+        this.numberOfRooms = numberOfRooms;
+    }
+    public void setTransport(Transport transport) {
+        this.transport = transport;
+    }
+    public void setView(View view) {
+        this.view = view;
+    }
+
     @Override
     public int compareTo(Flat flat) {
         return (int) (area - flat.getArea());
