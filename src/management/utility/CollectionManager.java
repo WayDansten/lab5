@@ -82,9 +82,11 @@ public class CollectionManager {
     }
     public void fillCollection(File file) throws FileNotFoundException {
         Invoker.fileMode(file);
+        Invoker.getReceiver().useDelimiter("\n");
         while (Invoker.getReceiver().hasNext()) {
             flats.add(parseFlat(Invoker.getReceiver().next().split(",")));
         }
+        Invoker.interactiveMode();
     }
     public void saveCollection(File file) throws IOException {
         try (FileWriter writer = new FileWriter(file)) {
@@ -110,10 +112,20 @@ public class CollectionManager {
         }
     }
     public void update(int id) {
+        boolean foundFlat = false;
         for (Flat flat : flats) {
             if (flat.getId() == id) {
-
+                foundFlat = true;
+                System.out.println("Текущие значения полей данной квартиры:");
+                System.out.println(flat);
+                System.out.println("Введите новые значения полей. Для того, чтобы оставить поле без изменений, введите предыдущее значение поля:");
+                flats.remove(flat);
+                flats.add(new FlatBuilder().build());
+                break;
             }
+        }
+        if (!foundFlat) {
+            System.out.println("Квартира с данным id не найдена!");
         }
     }
 }

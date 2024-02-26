@@ -17,23 +17,23 @@ public class Invoker {
     static boolean actuator = false;
     private static final ArrayList<String> commandHistory = new ArrayList<>();
     Map<String, Command> commands = new HashMap<>();
-    {commands.put("add", new AddCommand(cm));
-    commands.put("remove_by_id", new RemoveByIdCommand(cm));
-    commands.put("exit", new ExitCommand(cm));
-    commands.put("help", new HelpCommand(cm));
-    commands.put("clear", new ClearCommand(cm));
-    commands.put("show", new ShowCommand(cm));
-    commands.put("info", new InfoCommand(cm));
-    commands.put("remove_greater", new RemoveGreaterCommand(cm));
-    commands.put("remove_lower",  new RemoveLowerCommand(cm));
-    commands.put("history", new HistoryCommand(cm));
-    commands.put("save", new SaveCommand(cm));
-    commands.put("filter_less_than_furnish", new FilterLessThanFurnishCommand(cm));
-    commands.put("count_greater_than_house", new CountGreaterThanHouseCommand(cm));}
-    static Scanner receiver = new Scanner(System.in);
-    static {
-        receiver.useDelimiter("\n");
+    {
+        commands.put("add", new AddCommand(cm));
+        commands.put("remove_by_id", new RemoveByIdCommand(cm));
+        commands.put("exit", new ExitCommand(cm));
+        commands.put("help", new HelpCommand(cm));
+        commands.put("clear", new ClearCommand(cm));
+        commands.put("show", new ShowCommand(cm));
+        commands.put("info", new InfoCommand(cm));
+        commands.put("remove_greater", new RemoveGreaterCommand(cm));
+        commands.put("remove_lower",  new RemoveLowerCommand(cm));
+        commands.put("history", new HistoryCommand(cm));
+        commands.put("save", new SaveCommand(cm));
+        commands.put("filter_less_than_furnish", new FilterLessThanFurnishCommand(cm));
+        commands.put("count_greater_than_house", new CountGreaterThanHouseCommand(cm));
+        commands.put("update", new UpdateCommand(cm));
     }
+    private static Scanner receiver;
     public void launch() {
         actuator = true;
         System.out.println("Приложение запущено");
@@ -51,7 +51,7 @@ public class Invoker {
                     throw new WrongInputException("Несуществующая команда! Пожалуйста, повторите ввод");
                 }
                 if (tokens.length == 1) {
-                    command.execute();
+                    command.execute("");
                 } else {
                     command.execute(tokens[1]);
                 }
@@ -68,6 +68,7 @@ public class Invoker {
     }
     public static void interactiveMode() {
         Invoker.receiver = new Scanner(System.in);
+        receiver.useDelimiter("\n");
     }
     public static void fileMode(File file) throws FileNotFoundException {
             Invoker.receiver = new Scanner(file);

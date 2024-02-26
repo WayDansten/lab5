@@ -14,6 +14,9 @@ import static java.lang.Double.parseDouble;
 import static java.lang.Integer.parseInt;
 
 public class FlatBuilder extends Builder<Flat> {
+    /**
+     * Класс-сборщик для класса Flat
+     */
     @Override
     public Flat build() {
         Coordinates coordinates = new CoordinatesBuilder().build();
