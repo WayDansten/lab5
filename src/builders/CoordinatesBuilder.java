@@ -10,10 +10,19 @@ public class CoordinatesBuilder extends Builder<Coordinates> {
     /**
      * Класс-сборщик для класса Coordinates
      */
+    /**
+     * Собирает новый экземпляр класса Coordinates
+     * @return Новый экземпляр класса Coordinates
+     */
     @Override
     public Coordinates build(){
         return new Coordinates(createXCoordinate(), createYCoordinate());
     }
+
+    /**
+     * Создает координату по X в интерактивном режиме
+     * @return Координата по X
+     */
     public int createXCoordinate(){
         int x;
         int MAX_X = 599;
@@ -34,6 +43,10 @@ public class CoordinatesBuilder extends Builder<Coordinates> {
         return x;
     }
 
+    /**
+     * Создает координату по Y в интерактивном режиме
+     * @return Координата по Y
+     */
     public int createYCoordinate(){
         int y;
         while (true) {

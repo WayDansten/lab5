@@ -11,11 +11,19 @@ public class HouseBuilder extends Builder<House> {
     /**
      * Класс-сборщик для класса House
      */
+    /**
+     * Собирает новый экземпляр класса House
+     * @return Новый экземпляр класса House
+     */
     @Override
     public House build() {
         return new House(createName(), createYear(), createNumberOfFloors(), createNumberOfLifts());
     }
 
+    /**
+     * Создаем имя
+     * @return
+     */
     public String createName() {
         String name;
         System.out.println("Введите название дома (оставьте строку пустой для значения null)");
