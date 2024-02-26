@@ -2,6 +2,9 @@ import management.utility.Invoker;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Locale;
 
 import static management.utility.Parser.parseFlat;
 
@@ -19,7 +22,6 @@ public class Main {
                 filePath = Invoker.getReceiver().next();
             }
         }
-        Invoker.interactiveMode();
         mainInvoker.launch();
     }
 }

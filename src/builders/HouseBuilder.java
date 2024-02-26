@@ -8,6 +8,9 @@ import static java.lang.Integer.parseInt;
 import static java.lang.Long.parseLong;
 
 public class HouseBuilder extends Builder<House> {
+    /**
+     * Класс-сборщик для класса House
+     */
     @Override
     public House build() {
         return new House(createName(), createYear(), createNumberOfFloors(), createNumberOfLifts());

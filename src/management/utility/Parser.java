@@ -10,6 +10,7 @@ import stored_classes.enums.View;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 
 import static java.lang.Double.parseDouble;
 import static java.lang.Integer.parseInt;
@@ -35,7 +36,7 @@ public class Parser {
                 new House(data[10], parseLong(data[11]), parseLong(data[12]), parseInt(data[13])));
     }
     public static Date parseDate(String data) {
-        SimpleDateFormat template = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy");
+        SimpleDateFormat template = new SimpleDateFormat("EEE MMM dd HH:mm:ss z yyyy", Locale.ENGLISH);
         try {
             return template.parse(data);
         } catch (ParseException e) {

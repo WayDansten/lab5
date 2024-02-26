@@ -7,6 +7,9 @@ import stored_classes.Coordinates;
 import static java.lang.Integer.parseInt;
 
 public class CoordinatesBuilder extends Builder<Coordinates> {
+    /**
+     * Класс-сборщик для класса Coordinates
+     */
     @Override
     public Coordinates build(){
         return new Coordinates(createXCoordinate(), createYCoordinate());
