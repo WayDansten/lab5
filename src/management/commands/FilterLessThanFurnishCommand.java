@@ -5,10 +5,11 @@ import management.utility.CollectionManager;
 import management.utility.Invoker;
 import stored_classes.enums.Furnish;
 
+/**
+ * Выводит все элементы коллекции, значение поля furnish (константы Furnish.quality) меньше указанного
+ */
+
 public class FilterLessThanFurnishCommand implements Command{
-    /**
-     * Выводит все элементы коллекции, значение поля furnish (константы Furnish.quality) меньше указанного
-     */
     CollectionManager cm;
     public FilterLessThanFurnishCommand(CollectionManager cm) {
         this.cm = cm;

@@ -6,10 +6,11 @@ import stored_classes.Coordinates;
 
 import static java.lang.Integer.parseInt;
 
+/**
+ * Класс-сборщик для класса Coordinates
+ */
+
 public class CoordinatesBuilder extends Builder<Coordinates> {
-    /**
-     * Класс-сборщик для класса Coordinates
-     */
     /**
      * Собирает новый экземпляр класса Coordinates
      * @return Новый экземпляр класса Coordinates

@@ -1,9 +1,10 @@
 package management.commands;
 
+/**
+ * Интерфейс для всех команд
+ */
+
 public interface Command {
-    /**
-     * Интерфейс для всех команд
-     */
     /**
      * Исполняет команду
      * @param args От 0 до N аргументов

@@ -3,10 +3,11 @@ package management.commands;
 import builders.FlatBuilder;
 import management.utility.CollectionManager;
 
+/**
+ * Команда добавления элемента в коллекцию
+ */
+
 public class AddCommand implements Command {
-    /**
-     * Команда добавления элемента в коллекцию
-     */
     CollectionManager cm;
     public AddCommand(CollectionManager cm) {
         this.cm = cm;

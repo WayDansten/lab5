@@ -9,10 +9,11 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
 
+/**
+ * Управляет командами и вводом/выводом
+ */
+
 public class Invoker {
-    /**
-     * Управляет командами и вводом/выводом
-     */
     private final CollectionManager cm = new CollectionManager();
     static boolean actuator = false;
     private static final ArrayList<String> commandHistory = new ArrayList<>();
@@ -32,6 +33,7 @@ public class Invoker {
             put("filter_less_than_furnish", new FilterLessThanFurnishCommand(cm));
             put("count_greater_than_house", new CountGreaterThanHouseCommand(cm));
             put("update", new UpdateCommand(cm));
+            put("execute_script", new ExecuteScriptCommand(cm));
         }
     };
     private static Scanner receiver;
@@ -98,6 +100,7 @@ public class Invoker {
                 BufferedInputStream bis = new BufferedInputStream(fis);
         ) {
             Invoker.receiver = new Scanner(fis);
+            receiver.useDelimiter("\n");
         }
 
     }

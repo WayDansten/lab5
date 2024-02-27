@@ -7,10 +7,11 @@ import stored_classes.House;
 import static java.lang.Integer.parseInt;
 import static java.lang.Long.parseLong;
 
+/**
+ * Класс-сборщик для класса House
+ */
+
 public class HouseBuilder extends Builder<House> {
-    /**
-     * Класс-сборщик для класса House
-     */
     /**
      * Собирает новый экземпляр класса House
      * @return Новый экземпляр класса House

@@ -2,10 +2,11 @@ package management.utility;
 
 import stored_classes.Flat;
 
+/**
+ * Преобразует объекты в формат .csv
+ */
+
 public class Unparser {
-    /**
-     * Преобразует объекты в формат .csv
-     */
     /**
      * Преобразует объект класса Flat в формат .csv
      * @param flat Преобразуемый объект

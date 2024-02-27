@@ -5,10 +5,11 @@ import management.utility.CollectionManager;
 import java.io.File;
 import java.io.IOException;
 
+/**
+ * Сохраняет коллекцию в файл в формате .csv
+ */
+
 public class SaveCommand implements Command {
-    /**
-     * Сохраняет коллекцию в файл в формате .csv
-     */
     CollectionManager cm;
     public SaveCommand(CollectionManager cm) {
         this.cm = cm;

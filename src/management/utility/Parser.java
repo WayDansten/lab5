@@ -16,6 +16,10 @@ import static java.lang.Double.parseDouble;
 import static java.lang.Integer.parseInt;
 import static java.lang.Long.parseLong;
 
+/**
+ * Преобразует строки в данные других типов
+ */
+
 public class Parser {
     /**
      * Преобразует строку с числами в целочисленное значение id

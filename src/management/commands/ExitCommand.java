@@ -3,10 +3,11 @@ package management.commands;
 import management.utility.CollectionManager;
 import management.utility.Invoker;
 
+/**
+ * Завершает работу приложения
+ */
+
 public class ExitCommand implements Command{
-    /**
-     * Завершает работу приложения
-     */
     CollectionManager cm;
     public ExitCommand(CollectionManager cm) {
         this.cm = cm;

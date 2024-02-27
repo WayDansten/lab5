@@ -2,10 +2,11 @@ package management.commands;
 
 import management.utility.CollectionManager;
 
+/**
+ * Выводит коллекцию в строковом представлении
+ */
+
 public class ShowCommand implements Command{
-    /**
-     * Выводит коллекцию в строковом представлении
-     */
     CollectionManager cm;
     public ShowCommand(CollectionManager cm) {
         this.cm = cm;

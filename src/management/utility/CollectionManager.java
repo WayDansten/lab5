@@ -10,10 +10,11 @@ import java.util.TreeSet;
 
 import static management.utility.Parser.parseFlat;
 
+/**
+ * Класс, управляющий коллекцией
+ */
+
 public class CollectionManager {
-    /**
-     * Класс, управляющий коллекцией
-     */
     TreeSet<Flat> flats = new TreeSet<>();
     Date initDate = new Date();
 
@@ -116,7 +117,7 @@ public class CollectionManager {
      * Заполняет коллекцию значениями из файла в формате .csv
      * @param filePath Путь к файлу со значениями
      */
-    public void fillCollection(String filePath) throws IOException{
+    public void fillCollection(String filePath) throws IOException {
         Invoker.fileMode(filePath);
         Invoker.getReceiver().useDelimiter("\n");
         while (Invoker.getReceiver().hasNext()) {

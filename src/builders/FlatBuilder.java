@@ -13,10 +13,11 @@ import stored_classes.enums.View;
 import static java.lang.Double.parseDouble;
 import static java.lang.Integer.parseInt;
 
+/**
+ * Класс-сборщик для класса Flat
+ */
+
 public class FlatBuilder extends Builder<Flat> {
-    /**
-     * Класс-сборщик для класса Flat
-     */
     /**
      * Собирает новый экземпляр класса Flat
      * @return Новый экземпляр класса Flat
