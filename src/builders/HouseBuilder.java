@@ -21,8 +21,8 @@ public class HouseBuilder extends Builder<House> {
     }
 
     /**
-     * Создаем имя
-     * @return
+     * Запрашивает значение поля name для класса House
+     * @return значение name
      */
     public String createName() {
         String name;
@@ -33,7 +33,10 @@ public class HouseBuilder extends Builder<House> {
         }
         return name;
     }
-
+    /**
+     * Запрашивает значение поля year для класса House
+     * @return значение year
+     */
     public long createYear() {
         long year;
         int MIN_YEAR = 0;
@@ -53,7 +56,10 @@ public class HouseBuilder extends Builder<House> {
         }
         return year;
     }
-
+    /**
+     * Запрашивает значение поля numberOfFloors для класса House
+     * @return значение numberOfFloors
+     */
     public long createNumberOfFloors() {
         long numberOfFloors;
         int MIN_NUMBER_OF_FLOORS = 0;
@@ -73,7 +79,10 @@ public class HouseBuilder extends Builder<House> {
         }
         return numberOfFloors;
     }
-
+    /**
+     * Запрашивает значение поля numberOfLifts для класса House
+     * @return значение numberOfLifts
+     */
     public Integer createNumberOfLifts() {
         int numberOfLifts;
         int MIN_NUMBER_OF_LIFTS = 0;

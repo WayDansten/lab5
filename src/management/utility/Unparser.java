@@ -3,6 +3,14 @@ package management.utility;
 import stored_classes.Flat;
 
 public class Unparser {
+    /**
+     * Преобразует объекты в формат .csv
+     */
+    /**
+     * Преобразует объект класса Flat в формат .csv
+     * @param flat Преобразуемый объект
+     * @return .csv строка
+     */
     public static String FlatToCSV(Flat flat) {
         return flat.getId() + "," + flat.getName() + "," + flat.getCoordinates().getX() + "," + flat.getCoordinates().getY()
                 + "," + flat.getCreationDate() + "," + flat.getArea() + "," + flat.getNumberOfRooms() + "," + flat.getFurnish()

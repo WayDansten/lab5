@@ -20,8 +20,8 @@ public class CoordinatesBuilder extends Builder<Coordinates> {
     }
 
     /**
-     * Создает координату по X в интерактивном режиме
-     * @return Координата по X
+     * Запрашивает значение поля x для класса Coordinates
+     * @return значение x
      */
     public int createXCoordinate(){
         int x;
@@ -44,8 +44,8 @@ public class CoordinatesBuilder extends Builder<Coordinates> {
     }
 
     /**
-     * Создает координату по Y в интерактивном режиме
-     * @return Координата по Y
+     * Запрашивает значение поля y для класса Coordinates
+     * @return значение y
      */
     public int createYCoordinate(){
         int y;

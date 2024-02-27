@@ -4,6 +4,9 @@ import management.utility.CollectionManager;
 import management.utility.Invoker;
 
 public class ExitCommand implements Command{
+    /**
+     * Завершает работу приложения
+     */
     CollectionManager cm;
     public ExitCommand(CollectionManager cm) {
         this.cm = cm;

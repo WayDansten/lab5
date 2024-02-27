@@ -3,6 +3,9 @@ package management.commands;
 import management.utility.CollectionManager;
 
 public class HelpCommand implements Command {
+    /**
+     * Выводит информацию по всем командам
+     */
     CollectionManager cm;
     public HelpCommand(CollectionManager cm) {
         this.cm = cm;

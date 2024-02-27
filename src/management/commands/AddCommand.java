@@ -4,6 +4,9 @@ import builders.FlatBuilder;
 import management.utility.CollectionManager;
 
 public class AddCommand implements Command {
+    /**
+     * Команда добавления элемента в коллекцию
+     */
     CollectionManager cm;
     public AddCommand(CollectionManager cm) {
         this.cm = cm;

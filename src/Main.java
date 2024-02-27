@@ -1,7 +1,6 @@
 import management.utility.Invoker;
 
-import java.io.File;
-import java.io.FileNotFoundException;
+import java.io.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Locale;
@@ -14,14 +13,14 @@ public class Main {
         Invoker mainInvoker = new Invoker();
         while (true) {
             try {
-                File file = new File(filePath);
-                mainInvoker.getCollectionManager().fillCollection(file);
+                Invoker.fileMode(filePath);
                 break;
-            } catch (FileNotFoundException e) {
+            } catch (IOException e) {
                 System.out.println("Файл не найден! Пожалуйста, введите путь до файла заново:");
                 filePath = Invoker.getReceiver().next();
             }
         }
+        Invoker.interactiveMode();
         mainInvoker.launch();
     }
 }

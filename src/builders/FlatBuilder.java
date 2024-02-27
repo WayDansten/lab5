@@ -1,7 +1,7 @@
 package builders;
 
 import exceptions.DataOutOfToleranceRegionException;
-import exceptions.WrongDataInputException;
+import exceptions.WrongDataTypeInputException;
 import management.utility.Invoker;
 import stored_classes.Coordinates;
 import stored_classes.Flat;
@@ -17,12 +17,20 @@ public class FlatBuilder extends Builder<Flat> {
     /**
      * Класс-сборщик для класса Flat
      */
+    /**
+     * Собирает новый экземпляр класса Flat
+     * @return Новый экземпляр класса Flat
+     */
     @Override
     public Flat build() {
         Coordinates coordinates = new CoordinatesBuilder().build();
         House house = new HouseBuilder().build();
         return new Flat(createName(), coordinates, createArea(), createNumberOfRooms(), createFurnish(), createView(), createTransport(), house);
     }
+    /**
+     * Запрашивает значение поля area для класса Flat
+     * @return значение area
+     */
     public double createArea() {
         double s;
         int MIN_AREA = 0;
@@ -42,7 +50,10 @@ public class FlatBuilder extends Builder<Flat> {
         }
         return s;
     }
-
+    /**
+     * Запрашивает значение поля numberOfRooms для класса Flat
+     * @return значение numberOfRooms
+     */
     public Integer createNumberOfRooms() {
         int numberOfRooms;
         int MIN_NUMBER_OF_ROOMS = 0;
@@ -62,7 +73,10 @@ public class FlatBuilder extends Builder<Flat> {
         }
         return numberOfRooms;
     }
-
+    /**
+     * Запрашивает значение поля name для класса Flat
+     * @return значение name
+     */
     public String createName() {
         String name;
         while (true) {
@@ -70,16 +84,19 @@ public class FlatBuilder extends Builder<Flat> {
             try {
                 name = Invoker.getReceiver().next();
                 if (name.isEmpty()) {
-                    throw new WrongDataInputException("Название квартиры не может быть пустой строкой!");
+                    throw new WrongDataTypeInputException("Название квартиры не может быть пустой строкой!");
                 }
                 break;
-            } catch (WrongDataInputException e) {
+            } catch (WrongDataTypeInputException e) {
                 System.out.println(e.getMessage());
             }
         }
         return name;
     }
-
+    /**
+     * Запрашивает значение поля furnish для класса Flat
+     * @return значение furnish
+     */
     public Furnish createFurnish() {
         Furnish furnish;
         while (true) {
@@ -94,16 +111,19 @@ public class FlatBuilder extends Builder<Flat> {
             try {
                 furnish = Furnish.naming.get(Invoker.getReceiver().next());
                 if (furnish == null) {
-                    throw new WrongDataInputException("Несуществующий вид мебели! Пожалуйста, введите вид мебели из перечня.");
+                    throw new WrongDataTypeInputException("Несуществующий вид мебели! Пожалуйста, введите вид мебели из перечня.");
                 }
                 break;
-            } catch (WrongDataInputException e) {
+            } catch (WrongDataTypeInputException e) {
                 System.out.println(e.getMessage());
             }
         }
         return furnish;
     }
-
+    /**
+     * Запрашивает значение поля transport для класса Flat
+     * @return значение transport
+     */
     public Transport createTransport() {
         Transport transport;
         while (true) {
@@ -117,16 +137,19 @@ public class FlatBuilder extends Builder<Flat> {
             try {
                 transport = Transport.naming.get(Invoker.getReceiver().next());
                 if (transport == null) {
-                    throw new WrongDataInputException("Несуществующая степень транспортной доступности! Пожалуйста, введите степень из перечня.");
+                    throw new WrongDataTypeInputException("Несуществующая степень транспортной доступности! Пожалуйста, введите степень из перечня.");
                 }
                 break;
-            } catch (WrongDataInputException e) {
+            } catch (WrongDataTypeInputException e) {
                 System.out.println(e.getMessage());
             }
         }
         return transport;
     }
-
+    /**
+     * Запрашивает значение поля view для класса Flat
+     * @return значение view
+     */
     public View createView() {
         View view;
         while (true) {
@@ -141,10 +164,10 @@ public class FlatBuilder extends Builder<Flat> {
             try {
                 view = View.naming.get(Invoker.getReceiver().next());
                 if (view == null) {
-                    throw new WrongDataInputException("Несуществующий вид из окна! Пожалуйста, введите вид из перечня.");
+                    throw new WrongDataTypeInputException("Несуществующий вид из окна! Пожалуйста, введите вид из перечня.");
                 }
                 break;
-            } catch (WrongDataInputException e) {
+            } catch (WrongDataTypeInputException e) {
                 System.out.println(e.getMessage());
             }
         }

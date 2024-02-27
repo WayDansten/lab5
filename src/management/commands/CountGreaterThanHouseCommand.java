@@ -1,14 +1,14 @@
 package management.commands;
 
-import exceptions.WrongDataInputException;
 import management.utility.CollectionManager;
 import management.utility.Invoker;
-import management.utility.Parser;
-import stored_classes.enums.Furnish;
 
 import static java.lang.Long.parseLong;
 
 public class CountGreaterThanHouseCommand implements Command {
+    /**
+     * Команда, считающая все элементы коллекции, у которых значение поля house.year больше, чем указанное значение
+     */
     CollectionManager cm;
     public CountGreaterThanHouseCommand(CollectionManager cm) {
         this.cm = cm;

@@ -6,6 +6,9 @@ import java.io.File;
 import java.io.IOException;
 
 public class SaveCommand implements Command {
+    /**
+     * Сохраняет коллекцию в файл в формате .csv
+     */
     CollectionManager cm;
     public SaveCommand(CollectionManager cm) {
         this.cm = cm;

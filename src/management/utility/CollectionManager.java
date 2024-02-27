@@ -3,10 +3,7 @@ package management.utility;
 import builders.FlatBuilder;
 import stored_classes.Flat;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.TreeSet;
@@ -14,11 +11,24 @@ import java.util.TreeSet;
 import static management.utility.Parser.parseFlat;
 
 public class CollectionManager {
+    /**
+     * Класс, управляющий коллекцией
+     */
     TreeSet<Flat> flats = new TreeSet<>();
     Date initDate = new Date();
+
+    /**
+     * Добавляет элемент в коллекцию
+     * @param flat Добавляемый элемент
+     */
     public void add(Flat flat) {
         flats.add(flat);
     }
+
+    /**
+     * Удаляет элемент из коллекции по его id
+     * @param id id удаляемого элемента
+     */
     public void removeById(int id) {
         boolean foundId = false;
         for (Flat flat : flats) {
@@ -33,9 +43,17 @@ public class CollectionManager {
             System.out.println("Квартира с данным id не найдена!");
         }
     }
+
+    /**
+     * Очищает коллекцию
+     */
     public void clear() {
         flats.clear();
     }
+
+    /**
+     * Выводит всю коллекцию в строковом представлении с порядковыми номерами элементов
+     */
     public void show() {
         int counter = 1;
         for (Flat flat : flats) {
@@ -43,9 +61,18 @@ public class CollectionManager {
             counter++;
         }
     }
+
+    /**
+     * Выводит информацию о коллекции (тип, дата инициализации, кол-во элементов)
+     */
     public void info() {
         System.out.println("Тип коллекции - " + flats.getClass() + ", Дата инициализации - " + initDate + ", Количество элементов - " + flats.size());
     }
+
+    /**
+     * Удаляет из коллекции все элементы, значение поля area которых больше, чем значение area у элемента с указанным id
+     * @param id id элемента, с которым проводится сравнение
+     */
     public void removeGreater(int id) {
         double comparedArea = 0;
         for (Flat flat: flats) {
@@ -60,6 +87,10 @@ public class CollectionManager {
             System.out.println("Квартира с данным id не найдена!");
         }
     }
+    /**
+     * Удаляет из коллекции все элементы, значение поля area которых меньше, чем значение area у элемента с указанным id
+     * @param id id элемента, с которым проводится сравнение
+     */
     public void removeLower(int id) {
         double comparedArea = 0;
         for (Flat flat: flats) {
@@ -80,14 +111,24 @@ public class CollectionManager {
             }
         }
     }
-    public void fillCollection(File file) throws FileNotFoundException {
-        Invoker.fileMode(file);
+
+    /**
+     * Заполняет коллекцию значениями из файла в формате .csv
+     * @param filePath Путь к файлу со значениями
+     */
+    public void fillCollection(String filePath) throws IOException{
+        Invoker.fileMode(filePath);
         Invoker.getReceiver().useDelimiter("\n");
         while (Invoker.getReceiver().hasNext()) {
             flats.add(parseFlat(Invoker.getReceiver().next().split(",")));
         }
-        Invoker.interactiveMode();
     }
+
+    /**
+     * Сохраняет коллекцию в файл в формате .csv
+     * @param file Файл, в который производится сохранение
+     * @throws IOException Выбрасывается, если файл не найден
+     */
     public void saveCollection(File file) throws IOException {
         try (FileWriter writer = new FileWriter(file)) {
             for (Flat flat : flats) {
@@ -95,6 +136,11 @@ public class CollectionManager {
             }
         }
     }
+
+    /**
+     * Выводит количество элементов коллекции, значение поля year которых больше, чем указанное значение year
+     * @param year Значение, с которым производится сравнение
+     */
     public void countGreaterThanHouse(long year) {
         int counter = 0;
         for (Flat flat : flats) {
@@ -104,6 +150,10 @@ public class CollectionManager {
         }
             System.out.println(counter);
     }
+    /**
+     * Выводит все элементы коллекции, значение поля furnish которых больше, чем указанное значение furnish (сравнение производится по целочисленным константам Furnish.quality)
+     * @param quality Значение, с которым производится сравнение
+     */
     public void filterLessThanFurnish(int quality) {
         for (Flat flat : flats) {
             if (flat.getFurnish().getQuality() < quality) {
@@ -111,6 +161,11 @@ public class CollectionManager {
             }
         }
     }
+
+    /**
+     * Обновляет поля элемента коллекции с указанным id в интерактивном режиме
+     * @param id id элемента, с которым производится сравнение
+     */
     public void update(int id) {
         boolean foundFlat = false;
         for (Flat flat : flats) {
