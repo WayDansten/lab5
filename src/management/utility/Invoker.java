@@ -90,18 +90,13 @@ public class Invoker {
     }
 
     /**
-     * Переводит Invoker в режим считывания из файла
-     * @param filePath Путь до файла
+     * Переводит Invoker в режим считывания из файла через буферизированный поток
+     * @param bis Путь до файла
      * @throws IOException Выбрасывается в случае, если файл не найден
      */
-    public static void fileMode(String filePath) throws IOException {
-        try (
-                FileInputStream fis = new FileInputStream(filePath);
-                BufferedInputStream bis = new BufferedInputStream(fis);
-        ) {
-            Invoker.receiver = new Scanner(fis);
+    public static void fileMode(BufferedInputStream bis) throws IOException {
+            Invoker.receiver = new Scanner(bis);
             receiver.useDelimiter("\n");
-        }
 
     }
 

@@ -4,6 +4,7 @@ import builders.FlatBuilder;
 import stored_classes.Flat;
 
 import java.io.*;
+import java.nio.Buffer;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.TreeSet;
@@ -115,10 +116,10 @@ public class CollectionManager {
 
     /**
      * Заполняет коллекцию значениями из файла в формате .csv
-     * @param filePath Путь к файлу со значениями
+     * @param bis Буферизированный поток данных из файла
      */
-    public void fillCollection(String filePath) throws IOException {
-        Invoker.fileMode(filePath);
+    public void fillCollection(BufferedInputStream bis) throws IOException {
+        Invoker.fileMode(bis);
         Invoker.getReceiver().useDelimiter("\n");
         while (Invoker.getReceiver().hasNext()) {
             flats.add(parseFlat(Invoker.getReceiver().next().split(",")));

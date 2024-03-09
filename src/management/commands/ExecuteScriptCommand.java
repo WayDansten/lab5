@@ -3,7 +3,6 @@ package management.commands;
 import management.utility.CollectionManager;
 import management.utility.Invoker;
 
-import java.io.IOError;
 import java.io.IOException;
 
 /**
@@ -17,12 +16,12 @@ public class ExecuteScriptCommand implements Command {
     }
     @Override
     public void execute(String... args) {
-        String filePath = args[0];
+        /*String filePath = args[0];
         try {
             System.out.println("Введите путь до файла скрипта:");
             Invoker.fileMode(filePath);
         } catch (IOException e) {
             System.out.println("Файл не найден!");
-        }
+        }*/
     }
 }

@@ -13,8 +13,10 @@ public class Main {
         Invoker mainInvoker = new Invoker();
         while (true) {
             try {
-                Invoker.fileMode(filePath);
-                break;
+                try (BufferedInputStream bis = new BufferedInputStream(new FileInputStream(filePath), 1024)) {
+                    mainInvoker.getCollectionManager().fillCollection(bis);
+                    break;
+                }
             } catch (IOException e) {
                 System.out.println("Файл не найден! Пожалуйста, введите путь до файла заново:");
                 filePath = Invoker.getReceiver().next();
