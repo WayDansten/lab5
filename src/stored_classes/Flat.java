@@ -2,14 +2,13 @@ package stored_classes;
 
 import stored_classes.enums.*;
 
-import java.util.Date;
-import java.util.Set;
-import java.util.TreeSet;
+import java.util.*;
 
 public class Flat implements Comparable<Flat> {
-    private static int idCounter = 1;
-    private static TreeSet<Integer> availableIds = new TreeSet<>();
-    private int id; //Значение поля должно быть больше 0, Значение этого поля должно быть уникальным, Значение этого поля должно генерироваться автоматически
+    private static int nextNewId = 1;
+    private static final Deque<Integer> availableIds = new ArrayDeque<>();
+    private static final Deque<Integer> usedIds = new ArrayDeque<>();
+    private final int id; //Значение поля должно быть больше 0, Значение этого поля должно быть уникальным, Значение этого поля должно генерироваться автоматически
     private String name; //Поле не может быть null, Строка не может быть пустой
     private Coordinates coordinates; //Поле не может быть null
     private java.util.Date creationDate; //Поле не может быть null, Значение этого поля должно генерироваться автоматически
@@ -31,12 +30,18 @@ public class Flat implements Comparable<Flat> {
         this.transport = transport;
         this.house = house;
         if (availableIds.isEmpty()) {
-            id = idCounter;
-            idCounter++;
+            id = nextNewId;
+            nextNewId++;
         } else {
-            id = availableIds.first();
-            idCounter = Math.max(idCounter, availableIds.last());
-            availableIds.remove(availableIds.first());
+            id = availableIds.pop();
+            if (usedIds.isEmpty()) {
+                usedIds.add(id);
+            } else if (usedIds.getLast() < id) {
+                usedIds.addLast(id);
+            } else {
+                usedIds.addFirst(id);
+            }
+            nextNewId = usedIds.getLast() + 1;
         }
     }
 
@@ -51,7 +56,7 @@ public class Flat implements Comparable<Flat> {
         this.view = view;
         this.transport = transport;
         this.house = house;
-        idCounter = Math.max(idCounter, id);
+        nextNewId = Math.max(nextNewId, id);
     }
 
     public int getId() {
@@ -116,5 +121,23 @@ public class Flat implements Comparable<Flat> {
         return "id = " + id + ", name = " + name + ", creation_date = " + creationDate + ", area = " + area + ", number_of_rooms = " + numberOfRooms +
                 ", furnish = " + furnish + ", view = " + view + ", transport = " + transport + ";\ncoordinates: " + coordinates +
                 ";\nhouse: " + house;
+    }
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, area, numberOfRooms, furnish, transport, view, coordinates, house);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null || this.getClass() != obj.getClass()) {
+            return false;
+        }
+        Flat flat = (Flat) obj;
+        return (this.name.equals(flat.getName()) && this.area == flat.getArea() && this.numberOfRooms.equals(flat.getNumberOfRooms()) &&
+                this.creationDate.equals(flat.getCreationDate()) && this.furnish.equals(flat.getFurnish()) && this.view.equals(flat.getView()) &&
+                this.transport.equals(flat.getTransport()) && this.coordinates.equals(flat.getCoordinates())) && this.house.equals(flat.getHouse());
     }
 }

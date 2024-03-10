@@ -23,8 +23,8 @@ public class CountGreaterThanHouseCommand implements Command {
                 year = parseLong(data);
                 break;
             } catch (NumberFormatException e) {
-                System.out.println("Недопустимый тип данных! Пожалуйста, введите целое число:");
-                data = Invoker.getReceiver().next();
+                System.err.println("Недопустимый тип данных! Пожалуйста, введите целое число:");
+                data = Invoker.getInstance().getIoManager().getReceiver().next();
             }
         }
         cm.countGreaterThanHouse(year);

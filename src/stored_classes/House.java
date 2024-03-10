@@ -1,5 +1,7 @@
 package stored_classes;
 
+import java.util.Objects;
+
 public class House {
     private String name; //Поле может быть null
     private long year; //Значение поля должно быть больше 0
@@ -41,5 +43,20 @@ public class House {
     @Override
     public String toString() {
         return "name = " + name + ", year = " + year + ", number_of_floors = " + numberOfFloors + ", number_of_lifts = " + numberOfLifts;
+    }
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, year, numberOfFloors, numberOfLifts);
+    }
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null || this.getClass() != obj.getClass()) {
+            return false;
+        }
+        House house = (House) obj;
+        return (this.name.equals(house.name) && this.year == house.getYear() && this.numberOfFloors == house.getNumberOfFloors() && this.numberOfLifts.equals(house.getNumberOfLifts()));
     }
 }

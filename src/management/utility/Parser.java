@@ -33,8 +33,8 @@ public class Parser {
                 id = parseInt(data);
                 break;
             } catch (NumberFormatException e) {
-                System.out.println("Недопустимый тип данных! Пожалуйста, введите id заново (id - целое число):");
-                data = Invoker.getReceiver().next();
+                System.err.println("Недопустимый тип данных! Пожалуйста, введите id заново (id - целое число):");
+                data = Invoker.getInstance().getIoManager().getReceiver().next();
             }
         }
         return id;
@@ -48,7 +48,7 @@ public class Parser {
     public static Flat parseFlat(String[] data) {
         return new Flat(parseInt(data[0]), data[1], new Coordinates(parseInt(data[2]), parseInt(data[3])), parseDate(data[4]),
                 parseDouble(data[5]), parseInt(data[6]), Furnish.naming.get(data[7]), View.naming.get(data[8]), Transport.naming.get(data[9]),
-                new House(data[10], parseLong(data[11]), parseLong(data[12]), parseInt(data[13])));
+                new House(data[10], parseLong(data[11]), parseLong(data[12]), parseInt(data[13].strip())));
     }
 
     /**
@@ -61,7 +61,7 @@ public class Parser {
         try {
             return template.parse(data);
         } catch (ParseException e) {
-            System.out.println("Недопустимый формат даты!");
+            System.err.println("Недопустимый формат даты!");
             return null;
         }
     }

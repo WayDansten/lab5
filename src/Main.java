@@ -10,19 +10,18 @@ import static management.utility.Parser.parseFlat;
 public class Main {
     public static void main(String[] args){
         String filePath = args[0];
-        Invoker mainInvoker = new Invoker();
         while (true) {
             try {
                 try (BufferedInputStream bis = new BufferedInputStream(new FileInputStream(filePath), 1024)) {
-                    mainInvoker.getCollectionManager().fillCollection(bis);
+                    Invoker.getInstance().getCollectionManager().fillCollection(bis);
                     break;
                 }
             } catch (IOException e) {
-                System.out.println("Файл не найден! Пожалуйста, введите путь до файла заново:");
-                filePath = Invoker.getReceiver().next();
+                System.err.println("Файл не найден! Пожалуйста, введите путь до файла заново:");
+                filePath = Invoker.getInstance().getIoManager().getReceiver().next();
             }
         }
-        Invoker.interactiveMode();
-        mainInvoker.launch();
+        Invoker.getInstance().getIoManager().setInteractiveMode();
+        Invoker.getInstance().launch();
     }
 }

@@ -4,6 +4,8 @@ import exceptions.DataOutOfToleranceRegionException;
 import management.utility.Invoker;
 import stored_classes.House;
 
+import java.util.Scanner;
+
 import static java.lang.Integer.parseInt;
 import static java.lang.Long.parseLong;
 
@@ -12,6 +14,10 @@ import static java.lang.Long.parseLong;
  */
 
 public class HouseBuilder extends Builder<House> {
+    private final Scanner receiver;
+    public HouseBuilder(Scanner receiver) {
+        this.receiver = receiver;
+    }
     /**
      * Собирает новый экземпляр класса House
      * @return Новый экземпляр класса House
@@ -28,7 +34,7 @@ public class HouseBuilder extends Builder<House> {
     public String createName() {
         String name;
         System.out.println("Введите название дома (оставьте строку пустой для значения null)");
-        name = Invoker.getReceiver().next();
+        name = receiver.next();
         if (name.isEmpty()) {
             name = null;
         }
@@ -44,7 +50,7 @@ public class HouseBuilder extends Builder<House> {
         while (true) {
             System.out.println("Введите целое число - год постройки дома Y (N > " + MIN_YEAR + "):");
             try {
-                year = parseLong(Invoker.getReceiver().next());
+                year = parseLong(receiver.next().strip());
                 if (year <= MIN_YEAR) {
                     throw new DataOutOfToleranceRegionException("Недопустимое значение числа! Y > " + MIN_YEAR + ".");
                 }
@@ -67,7 +73,7 @@ public class HouseBuilder extends Builder<House> {
         while (true) {
             System.out.println("Введите целое число - количество этажей в доме N (N > " + MIN_NUMBER_OF_FLOORS + "):");
             try {
-                numberOfFloors = parseLong(Invoker.getReceiver().next());
+                numberOfFloors = parseLong(receiver.next().strip());
                 if (numberOfFloors <= MIN_NUMBER_OF_FLOORS) {
                     throw new DataOutOfToleranceRegionException("Недопустимое значение числа! N > " + MIN_NUMBER_OF_FLOORS + ".");
                 }
@@ -90,7 +96,7 @@ public class HouseBuilder extends Builder<House> {
         while (true) {
             System.out.println("Введите целое число - количество лифтов в доме N (N > " + MIN_NUMBER_OF_LIFTS + "):");
             try {
-                numberOfLifts = parseInt(Invoker.getReceiver().next());
+                numberOfLifts = parseInt(receiver.next().strip());
                 if (numberOfLifts <= MIN_NUMBER_OF_LIFTS) {
                     throw new DataOutOfToleranceRegionException("Недопустимое значение числа! N > " + MIN_NUMBER_OF_LIFTS + ".");
                 }

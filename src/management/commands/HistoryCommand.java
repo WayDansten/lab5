@@ -14,6 +14,6 @@ public class HistoryCommand implements Command {
     }
     @Override
     public void execute(String... args) {
-        System.out.println(Invoker.getCommandHistory());
+        System.out.println(Invoker.getInstance().getCommandHistory());
     }
 }

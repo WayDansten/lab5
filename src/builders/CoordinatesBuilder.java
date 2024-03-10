@@ -4,6 +4,8 @@ import exceptions.DataOutOfToleranceRegionException;
 import management.utility.Invoker;
 import stored_classes.Coordinates;
 
+import java.util.Scanner;
+
 import static java.lang.Integer.parseInt;
 
 /**
@@ -11,6 +13,11 @@ import static java.lang.Integer.parseInt;
  */
 
 public class CoordinatesBuilder extends Builder<Coordinates> {
+    private final Scanner receiver;
+    public CoordinatesBuilder(Scanner receiver) {
+        this.receiver = receiver;
+    }
+
     /**
      * Собирает новый экземпляр класса Coordinates
      * @return Новый экземпляр класса Coordinates
@@ -30,7 +37,7 @@ public class CoordinatesBuilder extends Builder<Coordinates> {
         while (true) {
             System.out.println("Введите целое число - координату по X (X < " + (MAX_X + 1) + "):");
             try {
-                x = parseInt(Invoker.getReceiver().next());
+                x = parseInt(receiver.next().strip());
                 if (x > MAX_X) {
                     throw new DataOutOfToleranceRegionException("Недопустимое значение числа! X < " + (MAX_X + 1) + ".");
                 }
@@ -53,7 +60,7 @@ public class CoordinatesBuilder extends Builder<Coordinates> {
         while (true) {
             System.out.println("Введите целое число - координату по Y:");
             try {
-                y = parseInt(Invoker.getReceiver().next());
+                y = parseInt(receiver.next().strip());
                 break;
             } catch (NumberFormatException e) {
                 System.out.println("Недопустимый формат данных! Y - целое число.");

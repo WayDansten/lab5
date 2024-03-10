@@ -21,7 +21,7 @@ public class SaveCommand implements Command {
             File file = new File(filePath);
             cm.saveCollection(file);
         } catch (IOException e) {
-            System.out.println("Файл не найден!");
+            System.err.println("Файл не найден!");
         }
     }
 }

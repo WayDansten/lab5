@@ -1,14 +1,15 @@
 package builders;
 
 import exceptions.DataOutOfToleranceRegionException;
-import exceptions.WrongDataTypeInputException;
-import management.utility.Invoker;
+import exceptions.WrongInputException;
 import stored_classes.Coordinates;
 import stored_classes.Flat;
 import stored_classes.House;
 import stored_classes.enums.Furnish;
 import stored_classes.enums.Transport;
 import stored_classes.enums.View;
+
+import java.util.Scanner;
 
 import static java.lang.Double.parseDouble;
 import static java.lang.Integer.parseInt;
@@ -18,15 +19,17 @@ import static java.lang.Integer.parseInt;
  */
 
 public class FlatBuilder extends Builder<Flat> {
+    private final Scanner receiver;
+    public FlatBuilder(Scanner receiver) {
+        this.receiver = receiver;
+    }
     /**
      * Собирает новый экземпляр класса Flat
      * @return Новый экземпляр класса Flat
      */
     @Override
     public Flat build() {
-        Coordinates coordinates = new CoordinatesBuilder().build();
-        House house = new HouseBuilder().build();
-        return new Flat(createName(), coordinates, createArea(), createNumberOfRooms(), createFurnish(), createView(), createTransport(), house);
+        return new Flat(createName(), new CoordinatesBuilder(receiver).build(), createArea(), createNumberOfRooms(), createFurnish(), createView(), createTransport(), new HouseBuilder(receiver).build());
     }
     /**
      * Запрашивает значение поля area для класса Flat
@@ -38,7 +41,7 @@ public class FlatBuilder extends Builder<Flat> {
         while (true) {
             System.out.println("Введите вещественное число - площадь квартиры S (S > " + MIN_AREA + "):");
             try {
-                s = parseDouble(Invoker.getReceiver().next());
+                s = parseDouble(receiver.next().strip());
                 if (s <= MIN_AREA) {
                     throw new DataOutOfToleranceRegionException("Недопустимое значение числа! S > " + MIN_AREA + ".");
                 }
@@ -61,7 +64,7 @@ public class FlatBuilder extends Builder<Flat> {
         while (true) {
             System.out.println("Введите целое число - количество комнат в квартире N (N > " + MIN_NUMBER_OF_ROOMS + "):");
             try {
-                numberOfRooms = parseInt(Invoker.getReceiver().next());
+                numberOfRooms = parseInt(receiver.next().strip());
                 if (numberOfRooms <= MIN_NUMBER_OF_ROOMS) {
                     throw new DataOutOfToleranceRegionException("Недопустимое значение числа! N > " + MIN_NUMBER_OF_ROOMS + ".");
                 }
@@ -83,12 +86,12 @@ public class FlatBuilder extends Builder<Flat> {
         while (true) {
             System.out.println("Введите название квартиры (название - не пустая строка)");
             try {
-                name = Invoker.getReceiver().next();
+                name = receiver.next();
                 if (name.isEmpty()) {
-                    throw new WrongDataTypeInputException("Название квартиры не может быть пустой строкой!");
+                    throw new WrongInputException("Название квартиры не может быть пустой строкой!");
                 }
                 break;
-            } catch (WrongDataTypeInputException e) {
+            } catch (WrongInputException e) {
                 System.out.println(e.getMessage());
             }
         }
@@ -110,12 +113,12 @@ public class FlatBuilder extends Builder<Flat> {
                     DESIGNER - дизайнерская мебель
                     """);
             try {
-                furnish = Furnish.naming.get(Invoker.getReceiver().next());
+                furnish = Furnish.naming.get(receiver.next().strip().toUpperCase());
                 if (furnish == null) {
-                    throw new WrongDataTypeInputException("Несуществующий вид мебели! Пожалуйста, введите вид мебели из перечня.");
+                    throw new WrongInputException("Несуществующий вид мебели! Пожалуйста, введите вид мебели из перечня.");
                 }
                 break;
-            } catch (WrongDataTypeInputException e) {
+            } catch (WrongInputException e) {
                 System.out.println(e.getMessage());
             }
         }
@@ -136,12 +139,12 @@ public class FlatBuilder extends Builder<Flat> {
                     ENOUGH - достаточное количество общественного транспорта
                     """);
             try {
-                transport = Transport.naming.get(Invoker.getReceiver().next());
+                transport = Transport.naming.get(receiver.next().strip().toUpperCase());
                 if (transport == null) {
-                    throw new WrongDataTypeInputException("Несуществующая степень транспортной доступности! Пожалуйста, введите степень из перечня.");
+                    throw new WrongInputException("Несуществующая степень транспортной доступности! Пожалуйста, введите степень из перечня.");
                 }
                 break;
-            } catch (WrongDataTypeInputException e) {
+            } catch (WrongInputException e) {
                 System.out.println(e.getMessage());
             }
         }
@@ -163,12 +166,12 @@ public class FlatBuilder extends Builder<Flat> {
                     PARK - вид на парк
                     """);
             try {
-                view = View.naming.get(Invoker.getReceiver().next());
+                view = View.naming.get(receiver.next().strip().toUpperCase());
                 if (view == null) {
-                    throw new WrongDataTypeInputException("Несуществующий вид из окна! Пожалуйста, введите вид из перечня.");
+                    throw new WrongInputException("Несуществующий вид из окна! Пожалуйста, введите вид из перечня.");
                 }
                 break;
-            } catch (WrongDataTypeInputException e) {
+            } catch (WrongInputException e) {
                 System.out.println(e.getMessage());
             }
         }

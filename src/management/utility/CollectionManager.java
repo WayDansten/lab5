@@ -119,10 +119,9 @@ public class CollectionManager {
      * @param bis Буферизированный поток данных из файла
      */
     public void fillCollection(BufferedInputStream bis) throws IOException {
-        Invoker.fileMode(bis);
-        Invoker.getReceiver().useDelimiter("\n");
-        while (Invoker.getReceiver().hasNext()) {
-            flats.add(parseFlat(Invoker.getReceiver().next().split(",")));
+        Invoker.getInstance().getIoManager().setFileMode(bis);
+        while (Invoker.getInstance().getIoManager().getReceiver().hasNext()) {
+            flats.add(parseFlat(Invoker.getInstance().getIoManager().getReceiver().next().split(",")));
         }
     }
 
@@ -177,12 +176,12 @@ public class CollectionManager {
                 System.out.println(flat);
                 System.out.println("Введите новые значения полей. Для того, чтобы оставить поле без изменений, введите предыдущее значение поля:");
                 flats.remove(flat);
-                flats.add(new FlatBuilder().build());
+                flats.add(new FlatBuilder(Invoker.getInstance().getIoManager().getReceiver()).build());
                 break;
             }
         }
         if (!foundFlat) {
-            System.out.println("Квартира с данным id не найдена!");
+            System.err.println("Квартира с данным id не найдена!");
         }
     }
 }

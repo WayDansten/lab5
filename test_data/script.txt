@@ -1,0 +1,15 @@
+add
+1
+1
+2
+1.5
+1
+NONE
+YARD
+NORMAL
+1
+1
+1
+1
+show
+exit

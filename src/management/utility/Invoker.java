@@ -14,9 +14,18 @@ import java.util.Scanner;
  */
 
 public class Invoker {
+    private static Invoker instance;
+    public static Invoker getInstance() {
+        if (instance == null) {
+            instance = new Invoker();
+        }
+        return instance;
+    }
     private final CollectionManager cm = new CollectionManager();
-    static boolean actuator = false;
-    private static final ArrayList<String> commandHistory = new ArrayList<>();
+    private final IOManager ioManager = new IOManager();
+    private boolean actuator = false;
+    private boolean inScript = false;
+    private final ArrayList<String> commandHistory = new ArrayList<>();
     Map<String, Command> commands = new HashMap<>() {
         {
             put("add", new AddCommand(cm));
@@ -36,21 +45,24 @@ public class Invoker {
             put("execute_script", new ExecuteScriptCommand(cm));
         }
     };
-    private static Scanner receiver;
 
     /**
      * Запускает считывание команд в том режиме, в котором Invoker находится в этот момент
      */
     public void launch() {
         actuator = true;
-        System.out.println("Приложение запущено");
-        while (actuator) {
+        while (true) {
             try {
+                if (inScript) {
+                    if (!ioManager.getReceiver().hasNext() || !actuator) {
+                        break;
+                    }
+                }
                 System.out.println("Пожалуйста, введите команду (введите help для просмотра всех команд):");
-                String line = receiver.next();
+                String line = ioManager.getReceiver().next();
                 String[] tokens = line.split(" ");
-                Command command = commands.get(tokens[0].toLowerCase());
-                commandHistory.add(tokens[0].toLowerCase());
+                Command command = commands.get(tokens[0].strip().toLowerCase());
+                commandHistory.add(tokens[0].strip().toLowerCase());
                 if (commandHistory.size() > 10) {
                     commandHistory.remove(0);
                 }
@@ -60,51 +72,31 @@ public class Invoker {
                 if (tokens.length == 1) {
                     command.execute("");
                 } else {
-                    command.execute(tokens[1]);
+                    command.execute(tokens[1].strip());
                 }
             } catch (WrongInputException e) {
-                System.out.println(e.getMessage());
+                System.err.println(e.getMessage());
             }
         }
-    }
-
-    /**
-     * Завершает считывание команд
-     */
-    public static void shutDown() {
-        actuator = false;
-    }
-    public static Scanner getReceiver() {
-        return receiver;
     }
     public CollectionManager getCollectionManager() {
         return cm;
     }
 
-    /**
-     * Переводит Invoker в интерактивный режим (ручной ввод с консоли)
-     */
-    public static void interactiveMode() {
-        Invoker.receiver = new Scanner(System.in);
-        receiver.useDelimiter("\n");
+    public IOManager getIoManager() {
+        return ioManager;
     }
-
-    /**
-     * Переводит Invoker в режим считывания из файла через буферизированный поток
-     * @param bis Путь до файла
-     * @throws IOException Выбрасывается в случае, если файл не найден
-     */
-    public static void fileMode(BufferedInputStream bis) throws IOException {
-            Invoker.receiver = new Scanner(bis);
-            receiver.useDelimiter("\n");
-
-    }
-
     /**
      * Выводит последние 10 команд
-     * @return Массив имен последних 10-ти команд
+     * @return Массив имен последних десяти команд
      */
-    public static ArrayList<String> getCommandHistory() {
+    public ArrayList<String> getCommandHistory() {
         return commandHistory;
+    }
+    public void setInScriptState(boolean state) {
+        inScript = state;
+    }
+    public void setActuatorState(boolean state) {
+        actuator = state;
     }
 }

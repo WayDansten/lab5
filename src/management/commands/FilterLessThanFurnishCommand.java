@@ -1,6 +1,6 @@
 package management.commands;
 
-import exceptions.WrongDataTypeInputException;
+import exceptions.WrongInputException;
 import management.utility.CollectionManager;
 import management.utility.Invoker;
 import stored_classes.enums.Furnish;
@@ -20,12 +20,12 @@ public class FilterLessThanFurnishCommand implements Command{
         while (true) {
             try {
                 if (furnish == null) {
-                    throw new WrongDataTypeInputException("Несуществующий вид мебели! Пожалуйста, повторите ввод");
+                    throw new WrongInputException("Несуществующий вид мебели! Пожалуйста, повторите ввод");
                 }
                 break;
-            } catch (WrongDataTypeInputException e) {
-                System.out.println(e.getMessage());
-                furnish = Furnish.naming.get(Invoker.getReceiver().next());
+            } catch (WrongInputException e) {
+                System.err.println(e.getMessage());
+                furnish = Furnish.naming.get(Invoker.getInstance().getIoManager().getReceiver().next());
             }
         }
         cm.filterLessThanFurnish(furnish.getQuality());
