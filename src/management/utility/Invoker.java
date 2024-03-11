@@ -1,5 +1,6 @@
 package management.utility;
 
+import exceptions.ErrorInFunctionException;
 import exceptions.WrongInputException;
 import management.commands.*;
 
@@ -49,7 +50,7 @@ public class Invoker {
     /**
      * Запускает считывание команд в том режиме, в котором Invoker находится в этот момент
      */
-    public void launch() {
+    public void launch() throws ErrorInFunctionException {
         actuator = true;
         while (true) {
             try {
@@ -98,6 +99,9 @@ public class Invoker {
     }
     public void setInScriptState(boolean state) {
         inScript = state;
+    }
+    public boolean getInScriptState() {
+        return inScript;
     }
     public void setActuatorState(boolean state) {
         actuator = state;

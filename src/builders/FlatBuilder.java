@@ -1,7 +1,9 @@
 package builders;
 
 import exceptions.DataOutOfToleranceRegionException;
+import exceptions.ErrorInFunctionException;
 import exceptions.WrongInputException;
+import management.utility.Invoker;
 import stored_classes.Coordinates;
 import stored_classes.Flat;
 import stored_classes.House;
@@ -28,14 +30,14 @@ public class FlatBuilder extends Builder<Flat> {
      * @return Новый экземпляр класса Flat
      */
     @Override
-    public Flat build() {
+    public Flat build() throws ErrorInFunctionException {
         return new Flat(createName(), new CoordinatesBuilder(receiver).build(), createArea(), createNumberOfRooms(), createFurnish(), createView(), createTransport(), new HouseBuilder(receiver).build());
     }
     /**
      * Запрашивает значение поля area для класса Flat
      * @return значение area
      */
-    public double createArea() {
+    public double createArea() throws ErrorInFunctionException {
         double s;
         int MIN_AREA = 0;
         while (true) {
@@ -48,8 +50,14 @@ public class FlatBuilder extends Builder<Flat> {
                 break;
             } catch (NumberFormatException e) {
                 System.out.println("Недопустимый формат данных! S - вещественное число.");
+                if (Invoker.getInstance().getInScriptState()) {
+                    throw new ErrorInFunctionException("При исполнении скрипта произошла ошибка!");
+                }
             } catch (DataOutOfToleranceRegionException e) {
                 System.out.println(e.getMessage());
+                if (Invoker.getInstance().getInScriptState()) {
+                    throw new ErrorInFunctionException("При исполнении скрипта произошла ошибка!");
+                }
             }
         }
         return s;
@@ -58,7 +66,7 @@ public class FlatBuilder extends Builder<Flat> {
      * Запрашивает значение поля numberOfRooms для класса Flat
      * @return значение numberOfRooms
      */
-    public Integer createNumberOfRooms() {
+    public Integer createNumberOfRooms() throws ErrorInFunctionException{
         int numberOfRooms;
         int MIN_NUMBER_OF_ROOMS = 0;
         while (true) {
@@ -71,8 +79,14 @@ public class FlatBuilder extends Builder<Flat> {
                 break;
             } catch (NumberFormatException e) {
                 System.out.println("Недопустимый формат данных! N - целое число.");
+                if (Invoker.getInstance().getInScriptState()) {
+                    throw new ErrorInFunctionException("При исполнении скрипта произошла ошибка!");
+                }
             } catch (DataOutOfToleranceRegionException e) {
                 System.out.println(e.getMessage());
+                if (Invoker.getInstance().getInScriptState()) {
+                    throw new ErrorInFunctionException("При исполнении скрипта произошла ошибка!");
+                }
             }
         }
         return numberOfRooms;
@@ -81,7 +95,7 @@ public class FlatBuilder extends Builder<Flat> {
      * Запрашивает значение поля name для класса Flat
      * @return значение name
      */
-    public String createName() {
+    public String createName() throws ErrorInFunctionException{
         String name;
         while (true) {
             System.out.println("Введите название квартиры (название - не пустая строка)");
@@ -93,6 +107,9 @@ public class FlatBuilder extends Builder<Flat> {
                 break;
             } catch (WrongInputException e) {
                 System.out.println(e.getMessage());
+                if (Invoker.getInstance().getInScriptState()) {
+                    throw new ErrorInFunctionException("При исполнении скрипта произошла ошибка!");
+                }
             }
         }
         return name;
@@ -101,7 +118,7 @@ public class FlatBuilder extends Builder<Flat> {
      * Запрашивает значение поля furnish для класса Flat
      * @return значение furnish
      */
-    public Furnish createFurnish() {
+    public Furnish createFurnish() throws ErrorInFunctionException{
         Furnish furnish;
         while (true) {
             System.out.println("Введите вид мебели в квартире (перечень приведен ниже):");
@@ -120,6 +137,9 @@ public class FlatBuilder extends Builder<Flat> {
                 break;
             } catch (WrongInputException e) {
                 System.out.println(e.getMessage());
+                if (Invoker.getInstance().getInScriptState()) {
+                    throw new ErrorInFunctionException("При исполнении скрипта произошла ошибка!");
+                }
             }
         }
         return furnish;
@@ -128,7 +148,7 @@ public class FlatBuilder extends Builder<Flat> {
      * Запрашивает значение поля transport для класса Flat
      * @return значение transport
      */
-    public Transport createTransport() {
+    public Transport createTransport() throws ErrorInFunctionException{
         Transport transport;
         while (true) {
             System.out.println("Введите степень транспортной доступности квартиры (перечень приведен ниже):");
@@ -146,6 +166,9 @@ public class FlatBuilder extends Builder<Flat> {
                 break;
             } catch (WrongInputException e) {
                 System.out.println(e.getMessage());
+                if (Invoker.getInstance().getInScriptState()) {
+                    throw new ErrorInFunctionException("При исполнении скрипта произошла ошибка!");
+                }
             }
         }
         return transport;
@@ -154,7 +177,7 @@ public class FlatBuilder extends Builder<Flat> {
      * Запрашивает значение поля view для класса Flat
      * @return значение view
      */
-    public View createView() {
+    public View createView() throws ErrorInFunctionException{
         View view;
         while (true) {
             System.out.println("Введите, какой у квартиры вид из окна (перечень приведен ниже):");
@@ -173,6 +196,9 @@ public class FlatBuilder extends Builder<Flat> {
                 break;
             } catch (WrongInputException e) {
                 System.out.println(e.getMessage());
+                if (Invoker.getInstance().getInScriptState()) {
+                    throw new ErrorInFunctionException("При исполнении скрипта произошла ошибка!");
+                }
             }
         }
         return view;

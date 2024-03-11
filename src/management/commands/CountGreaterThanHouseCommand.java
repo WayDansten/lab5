@@ -1,5 +1,6 @@
 package management.commands;
 
+import exceptions.ErrorInFunctionException;
 import management.utility.CollectionManager;
 import management.utility.Invoker;
 
@@ -15,7 +16,7 @@ public class CountGreaterThanHouseCommand implements Command {
         this.cm = cm;
     }
     @Override
-    public void execute(String... args) {
+    public void execute(String... args) throws ErrorInFunctionException{
         String data = args[0];
         long year;
         while (true) {
@@ -24,6 +25,9 @@ public class CountGreaterThanHouseCommand implements Command {
                 break;
             } catch (NumberFormatException e) {
                 System.err.println("Недопустимый тип данных! Пожалуйста, введите целое число:");
+                if (Invoker.getInstance().getInScriptState()) {
+                    throw new ErrorInFunctionException("При исполнении скрипта произошла ошибка!");
+                }
                 data = Invoker.getInstance().getIoManager().getReceiver().next();
             }
         }

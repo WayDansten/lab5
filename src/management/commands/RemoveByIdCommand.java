@@ -1,5 +1,6 @@
 package management.commands;
 
+import exceptions.ErrorInFunctionException;
 import management.utility.CollectionManager;
 import management.utility.Parser;
 
@@ -15,7 +16,7 @@ public class RemoveByIdCommand implements Command {
         this.cm = cm;
     }
     @Override
-    public void execute(String... args) {
+    public void execute(String... args) throws ErrorInFunctionException {
         String input = args[0];
         cm.removeById(Parser.parseId(input));
     }

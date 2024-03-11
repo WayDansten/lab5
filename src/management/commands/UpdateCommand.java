@@ -1,5 +1,6 @@
 package management.commands;
 
+import exceptions.ErrorInFunctionException;
 import management.utility.CollectionManager;
 import management.utility.Parser;
 
@@ -13,7 +14,7 @@ public class UpdateCommand implements Command {
         this.cm = cm;
     }
     @Override
-    public void execute(String... args) {
+    public void execute(String... args) throws ErrorInFunctionException {
         String input = args[0];
         cm.update(Parser.parseId(input));
     }

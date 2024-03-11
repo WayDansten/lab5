@@ -1,6 +1,7 @@
 package builders;
 
 import exceptions.DataOutOfToleranceRegionException;
+import exceptions.ErrorInFunctionException;
 import management.utility.Invoker;
 import stored_classes.Coordinates;
 
@@ -23,7 +24,7 @@ public class CoordinatesBuilder extends Builder<Coordinates> {
      * @return Новый экземпляр класса Coordinates
      */
     @Override
-    public Coordinates build(){
+    public Coordinates build() throws ErrorInFunctionException{
         return new Coordinates(createXCoordinate(), createYCoordinate());
     }
 
@@ -31,7 +32,7 @@ public class CoordinatesBuilder extends Builder<Coordinates> {
      * Запрашивает значение поля x для класса Coordinates
      * @return значение x
      */
-    public int createXCoordinate(){
+    public int createXCoordinate() throws ErrorInFunctionException{
         int x;
         int MAX_X = 599;
         while (true) {
@@ -44,8 +45,14 @@ public class CoordinatesBuilder extends Builder<Coordinates> {
                 break;
             } catch (NumberFormatException e) {
                 System.out.println("Недопустимый формат данных! X - целое число.");
+                if (Invoker.getInstance().getInScriptState()) {
+                    throw new ErrorInFunctionException("При исполнении скрипта произошла ошибка!");
+                }
             } catch (DataOutOfToleranceRegionException e) {
                 System.out.println(e.getMessage());
+                if (Invoker.getInstance().getInScriptState()) {
+                    throw new ErrorInFunctionException("При исполнении скрипта произошла ошибка!");
+                }
             }
         }
         return x;
@@ -55,7 +62,7 @@ public class CoordinatesBuilder extends Builder<Coordinates> {
      * Запрашивает значение поля y для класса Coordinates
      * @return значение y
      */
-    public int createYCoordinate(){
+    public int createYCoordinate() throws ErrorInFunctionException{
         int y;
         while (true) {
             System.out.println("Введите целое число - координату по Y:");
@@ -64,6 +71,9 @@ public class CoordinatesBuilder extends Builder<Coordinates> {
                 break;
             } catch (NumberFormatException e) {
                 System.out.println("Недопустимый формат данных! Y - целое число.");
+                if (Invoker.getInstance().getInScriptState()) {
+                    throw new ErrorInFunctionException("При исполнении скрипта произошла ошибка!");
+                }
             }
         }
         return y;

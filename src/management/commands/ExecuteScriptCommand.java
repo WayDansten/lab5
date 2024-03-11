@@ -1,5 +1,6 @@
 package management.commands;
 
+import exceptions.ErrorInFunctionException;
 import management.utility.CollectionManager;
 import management.utility.Invoker;
 
@@ -13,12 +14,13 @@ import java.util.Deque;
 
 public class ExecuteScriptCommand implements Command {
     CollectionManager cm;
+    static boolean exceptionOccurred = false;
     private final Deque<String> openedScripts = new ArrayDeque<>();
     public ExecuteScriptCommand(CollectionManager cm) {
         this.cm = cm;
     }
     @Override
-    public void execute(String... args) {
+    public void execute(String... args) throws ErrorInFunctionException {
         String filePath = args[0];
         try {
             try (BufferedInputStream bis = new BufferedInputStream(new FileInputStream(filePath))) {
@@ -34,6 +36,12 @@ public class ExecuteScriptCommand implements Command {
             }
         } catch (IOException e) {
             System.err.println("Файл не найден!");
+            if (Invoker.getInstance().getInScriptState()) {
+                throw new ErrorInFunctionException("При исполнении скрипта произошла ошибка!");
+            }
+        } catch (ErrorInFunctionException e) {
+            System.err.println(e.getMessage());
+            exceptionOccurred = true;
         }
     }
 }

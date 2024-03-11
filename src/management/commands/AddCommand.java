@@ -1,6 +1,7 @@
 package management.commands;
 
 import builders.FlatBuilder;
+import exceptions.ErrorInFunctionException;
 import management.utility.CollectionManager;
 import management.utility.Invoker;
 
@@ -14,7 +15,7 @@ public class AddCommand implements Command {
         this.cm = cm;
     }
     @Override
-    public void execute(String... args) {
+    public void execute(String... args) throws ErrorInFunctionException {
         cm.add(new FlatBuilder(Invoker.getInstance().getIoManager().getReceiver()).build());
         System.out.println("Квартира успешно добавлена!");
     }

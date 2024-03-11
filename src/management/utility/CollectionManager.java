@@ -1,6 +1,7 @@
 package management.utility;
 
 import builders.FlatBuilder;
+import exceptions.ErrorInFunctionException;
 import stored_classes.Flat;
 
 import java.io.*;
@@ -43,7 +44,7 @@ public class CollectionManager {
             }
         }
         if (!foundId) {
-            System.out.println("Квартира с данным id не найдена!");
+            System.err.println("Квартира с данным id не найдена!");
         }
     }
 
@@ -79,7 +80,7 @@ public class CollectionManager {
      * Удаляет из коллекции все элементы, значение поля area которых больше, чем значение area у элемента с указанным id
      * @param id id элемента, с которым проводится сравнение
      */
-    public void removeGreater(int id) {
+    public void removeGreater(int id) throws ErrorInFunctionException{
         double comparedArea = 0;
         for (Flat flat: flats) {
             if (flat.getId() == id) {
@@ -90,14 +91,17 @@ public class CollectionManager {
             }
         }
         if (comparedArea == 0) {
-            System.out.println("Квартира с данным id не найдена!");
+            System.err.println("Квартира с данным id не найдена!");
+            if (Invoker.getInstance().getInScriptState()) {
+                throw new ErrorInFunctionException("При исполнении скрипта произошла ошибка!");
+            }
         }
     }
     /**
      * Удаляет из коллекции все элементы, значение поля area которых меньше, чем значение area у элемента с указанным id
      * @param id id элемента, с которым проводится сравнение
      */
-    public void removeLower(int id) {
+    public void removeLower(int id) throws ErrorInFunctionException{
         double comparedArea = 0;
         for (Flat flat: flats) {
             if (flat.getId() == id) {
@@ -106,7 +110,10 @@ public class CollectionManager {
             }
         }
         if (comparedArea == 0) {
-            System.out.println("Квартира с данным id не найдена!");
+            System.err.println("Квартира с данным id не найдена!");
+            if (Invoker.getInstance().getInScriptState()) {
+                throw new ErrorInFunctionException("При исполнении скрипта произошла ошибка!");
+            }
         } else {
             for (Flat flat : flats) {
                 if (flat.getArea() < comparedArea) {
@@ -185,7 +192,7 @@ public class CollectionManager {
      * Обновляет поля элемента коллекции с указанным id в интерактивном режиме
      * @param id id элемента, с которым производится сравнение
      */
-    public void update(int id) {
+    public void update(int id) throws ErrorInFunctionException{
         boolean foundFlat = false;
         for (Flat flat : flats) {
             if (flat.getId() == id) {
@@ -200,6 +207,9 @@ public class CollectionManager {
         }
         if (!foundFlat) {
             System.err.println("Квартира с данным id не найдена!");
+            if (Invoker.getInstance().getInScriptState()) {
+                throw new ErrorInFunctionException("При исполнении скрипта произошла ошибка!");
+            }
         }
     }
 }

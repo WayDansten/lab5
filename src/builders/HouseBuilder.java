@@ -1,6 +1,7 @@
 package builders;
 
 import exceptions.DataOutOfToleranceRegionException;
+import exceptions.ErrorInFunctionException;
 import management.utility.Invoker;
 import stored_classes.House;
 
@@ -23,7 +24,7 @@ public class HouseBuilder extends Builder<House> {
      * @return Новый экземпляр класса House
      */
     @Override
-    public House build() {
+    public House build() throws ErrorInFunctionException {
         return new House(createName(), createYear(), createNumberOfFloors(), createNumberOfLifts());
     }
 
@@ -44,7 +45,7 @@ public class HouseBuilder extends Builder<House> {
      * Запрашивает значение поля year для класса House
      * @return значение year
      */
-    public long createYear() {
+    public long createYear() throws ErrorInFunctionException{
         long year;
         int MIN_YEAR = 0;
         while (true) {
@@ -57,8 +58,14 @@ public class HouseBuilder extends Builder<House> {
                 break;
             } catch (NumberFormatException e) {
                 System.out.println("Недопустимый формат данных! Y - целое число.");
+                if (Invoker.getInstance().getInScriptState()) {
+                    throw new ErrorInFunctionException("При исполнении скрипта произошла ошибка!");
+                }
             } catch (DataOutOfToleranceRegionException e) {
                 System.out.println(e.getMessage());
+                if (Invoker.getInstance().getInScriptState()) {
+                    throw new ErrorInFunctionException("При исполнении скрипта произошла ошибка!");
+                }
             }
         }
         return year;
@@ -67,7 +74,7 @@ public class HouseBuilder extends Builder<House> {
      * Запрашивает значение поля numberOfFloors для класса House
      * @return значение numberOfFloors
      */
-    public long createNumberOfFloors() {
+    public long createNumberOfFloors() throws ErrorInFunctionException {
         long numberOfFloors;
         int MIN_NUMBER_OF_FLOORS = 0;
         while (true) {
@@ -80,8 +87,14 @@ public class HouseBuilder extends Builder<House> {
                 break;
             } catch (NumberFormatException e) {
                 System.out.println("Недопустимый формат данных! N - целое число.");
+                if (Invoker.getInstance().getInScriptState()) {
+                    throw new ErrorInFunctionException("При исполнении скрипта произошла ошибка!");
+                }
             } catch (DataOutOfToleranceRegionException e) {
                 System.out.println(e.getMessage());
+                if (Invoker.getInstance().getInScriptState()) {
+                    throw new ErrorInFunctionException("При исполнении скрипта произошла ошибка!");
+                }
             }
         }
         return numberOfFloors;
@@ -90,7 +103,7 @@ public class HouseBuilder extends Builder<House> {
      * Запрашивает значение поля numberOfLifts для класса House
      * @return значение numberOfLifts
      */
-    public Integer createNumberOfLifts() {
+    public Integer createNumberOfLifts() throws ErrorInFunctionException{
         int numberOfLifts;
         int MIN_NUMBER_OF_LIFTS = 0;
         while (true) {
@@ -103,8 +116,14 @@ public class HouseBuilder extends Builder<House> {
                 break;
             } catch (NumberFormatException e) {
                 System.out.println("Недопустимый формат данных! N - целое число.");
+                if (Invoker.getInstance().getInScriptState()) {
+                    throw new ErrorInFunctionException("При исполнении скрипта произошла ошибка!");
+                }
             } catch (DataOutOfToleranceRegionException e) {
                 System.out.println(e.getMessage());
+                if (Invoker.getInstance().getInScriptState()) {
+                    throw new ErrorInFunctionException("При исполнении скрипта произошла ошибка!");
+                }
             }
         }
         return numberOfLifts;

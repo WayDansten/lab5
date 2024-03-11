@@ -4,7 +4,7 @@ import java.io.BufferedInputStream;
 import java.util.Scanner;
 
 public class IOManager {
-    private Scanner receiver;
+    private Scanner receiver = new Scanner(System.in);
     public Scanner getReceiver() {
         return receiver;
     }

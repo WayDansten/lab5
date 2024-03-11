@@ -1,5 +1,6 @@
 package builders;
 
+import exceptions.ErrorInFunctionException;
 import exceptions.WrongInputException;
 
 /**
@@ -7,5 +8,5 @@ import exceptions.WrongInputException;
  */
 
 public abstract class Builder<T> {
-    public abstract T build();
+    public abstract T build() throws ErrorInFunctionException;
 }
