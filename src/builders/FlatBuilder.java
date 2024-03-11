@@ -86,7 +86,7 @@ public class FlatBuilder extends Builder<Flat> {
         while (true) {
             System.out.println("Введите название квартиры (название - не пустая строка)");
             try {
-                name = receiver.next();
+                name = receiver.next().replaceAll("[\r\n]", "");
                 if (name.isEmpty()) {
                     throw new WrongInputException("Название квартиры не может быть пустой строкой!");
                 }

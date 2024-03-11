@@ -54,9 +54,12 @@ public class Invoker {
         while (true) {
             try {
                 if (inScript) {
-                    if (!ioManager.getReceiver().hasNext() || !actuator) {
+                    if (!ioManager.getReceiver().hasNext()) {
                         break;
                     }
+                }
+                if (!actuator) {
+                    break;
                 }
                 System.out.println("Пожалуйста, введите команду (введите help для просмотра всех команд):");
                 String line = ioManager.getReceiver().next();

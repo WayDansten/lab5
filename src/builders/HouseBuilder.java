@@ -34,7 +34,7 @@ public class HouseBuilder extends Builder<House> {
     public String createName() {
         String name;
         System.out.println("Введите название дома (оставьте строку пустой для значения null)");
-        name = receiver.next();
+        name = receiver.next().replaceAll("[\r\n]", "");
         if (name.isEmpty()) {
             name = null;
         }

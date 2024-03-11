@@ -45,7 +45,7 @@ public class Parser {
      * @param data Массив строк со значениями полей класса Flat
      * @return Новый экземпляр класса Flat
      */
-    public static Flat parseFlat(String[] data) {
+    public static Flat parseFlat(String[] data) throws NumberFormatException {
         return new Flat(parseInt(data[0]), data[1], new Coordinates(parseInt(data[2]), parseInt(data[3])), parseDate(data[4]),
                 parseDouble(data[5]), parseInt(data[6]), Furnish.naming.get(data[7]), View.naming.get(data[8]), Transport.naming.get(data[9]),
                 new House(data[10], parseLong(data[11]), parseLong(data[12]), parseInt(data[13].strip())));

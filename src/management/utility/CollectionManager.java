@@ -9,6 +9,7 @@ import java.util.Date;
 import java.util.Iterator;
 import java.util.TreeSet;
 
+import static java.lang.Integer.parseInt;
 import static management.utility.Parser.parseFlat;
 
 /**
@@ -50,6 +51,9 @@ public class CollectionManager {
      * Очищает коллекцию
      */
     public void clear() {
+        Flat.clearUsedIds();
+        Flat.clearAvailableIds();
+        Flat.setNextNewId(1);
         flats.clear();
     }
 
@@ -121,7 +125,21 @@ public class CollectionManager {
     public void fillCollection(BufferedInputStream bis) throws IOException {
         Invoker.getInstance().getIoManager().setFileMode(bis);
         while (Invoker.getInstance().getIoManager().getReceiver().hasNext()) {
-            flats.add(parseFlat(Invoker.getInstance().getIoManager().getReceiver().next().split(",")));
+            String[] data = Invoker.getInstance().getIoManager().getReceiver().next().split(",");
+            try {
+                Flat flat = parseFlat(data);
+                Flat.addUsedId(parseInt(data[0]));
+                flats.add(flat);
+            } catch (NumberFormatException e) {
+                System.err.println("Некорректная строка данных! Квартира добавлена не будет");
+            }
+        }
+        if (!Flat.getUsedIds().isEmpty()) {
+            for (int id = 1; Flat.getUsedIds().getLast() > id; id++) {
+                if (!Flat.getUsedIds().contains(id)) {
+                    Flat.getAvailableIds().add(id);
+                }
+            }
         }
     }
 
