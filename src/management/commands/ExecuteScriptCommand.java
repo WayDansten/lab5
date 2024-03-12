@@ -14,7 +14,8 @@ import java.util.Deque;
 
 public class ExecuteScriptCommand implements Command {
     CollectionManager cm;
-    static boolean exceptionOccurred = false;
+    static boolean errorOccurred = false;
+    static boolean recursionOccurred = false;
     private final Deque<String> openedScripts = new ArrayDeque<>();
     public ExecuteScriptCommand(CollectionManager cm) {
         this.cm = cm;
@@ -24,13 +25,18 @@ public class ExecuteScriptCommand implements Command {
         String filePath = args[0];
         try {
             try (BufferedInputStream bis = new BufferedInputStream(new FileInputStream(filePath))) {
-                openedScripts.add(filePath);
                 boolean end = false;
-                int lineCounter = 0;
+                if (openedScripts.contains(filePath)) {
+                    recursionOccurred = true;
+                    errorOccurred = true;
+                    end = true;
+                    System.err.println("Обнаружена рекурсия! Дальнейшие команды из скриптов выполнены не будут!");
+                }
+                openedScripts.add(filePath);
                 Invoker.getInstance().setInScriptState(true);
                 Invoker.getInstance().getIoManager().setFileMode(bis);
                 while (!end) {
-                    if (exceptionOccurred) {
+                    if (errorOccurred) {
                         break;
                     }
                     try {
@@ -38,7 +44,7 @@ public class ExecuteScriptCommand implements Command {
                     } catch (ErrorInFunctionException e) {
                         System.err.println(e.getMessage());
                         System.err.println("Ошибка в файле " + openedScripts.getLast());
-                        exceptionOccurred = true;
+                        errorOccurred = true;
                         end = true;
                     }
                 }

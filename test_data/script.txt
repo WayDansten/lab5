@@ -1,15 +1,2 @@
-add
-34
-1
-2
-1.5
-1
-NONE
-YARD
-NORMAL
-1
-2
-3
-4
-execute_script D:\ITMO.kal\Proga\lab5\untitled\test_data\anotherscript.txt
-save D:\ITMO.kal\Proga\lab5\untitled\test_data\data.csv
+execute_script C:\ITMO\Proga\lab5\test_data\anotherscript.txt
+save C:\ITMO\Proga\lab5\test_data\data.csv

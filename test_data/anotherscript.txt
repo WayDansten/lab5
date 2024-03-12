@@ -1,2 +1,2 @@
 info
-history
+execute_script C:\Itmo\Proga\lab5\test_data\script.txt
