@@ -11,17 +11,5 @@ NORMAL
 2
 3
 4
-add
-34
-234
-2
-35.465
-1
-BAD
-Street
-NORMAL
-4
-3
-2
-1
+execute_script D:\ITMO.kal\Proga\lab5\untitled\test_data\anotherscript.txt
 save D:\ITMO.kal\Proga\lab5\untitled\test_data\data.csv

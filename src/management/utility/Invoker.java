@@ -51,37 +51,42 @@ public class Invoker {
      * Запускает считывание команд в том режиме, в котором Invoker находится в этот момент
      */
     public void launch() throws ErrorInFunctionException {
-        actuator = true;
-        while (true) {
+        boolean shutDown = false;
+        while (!shutDown) {
             try {
-                if (inScript) {
-                    if (!ioManager.getReceiver().hasNext()) {
-                        break;
-                    }
-                }
-                if (!actuator) {
-                    break;
-                }
-                System.out.println("Пожалуйста, введите команду (введите help для просмотра всех команд):");
-                String line = ioManager.getReceiver().next();
-                String[] tokens = line.split(" ");
-                Command command = commands.get(tokens[0].strip().toLowerCase());
-                commandHistory.add(tokens[0].strip().toLowerCase());
-                if (commandHistory.size() > 10) {
-                    commandHistory.remove(0);
-                }
-                if (command == null) {
-                    throw new WrongInputException("Несуществующая команда! Пожалуйста, повторите ввод");
-                }
-                if (tokens.length == 1) {
-                    command.execute("");
-                } else {
-                    command.execute(tokens[1].strip());
-                }
-            } catch (WrongInputException e) {
+                shutDown = executeCommand();
+            } catch (ErrorInFunctionException e) {
                 System.err.println(e.getMessage());
             }
         }
+    }
+    public boolean executeCommand() throws ErrorInFunctionException {
+        System.out.println("Пожалуйста, введите команду (введите help для просмотра всех команд):");
+        if (inScript && !ioManager.getReceiver().hasNext()) {
+            return true;
+        }
+        String line = ioManager.getReceiver().next();
+        String[] tokens = line.split(" ");
+        Command command = commands.get(tokens[0].strip().toLowerCase());
+        if (commandHistory.size() > 10) {
+            commandHistory.remove(0);
+        }
+        if (command == null) {
+            System.err.println("Несуществующая команда!");
+            return false;
+        }
+        if (tokens[0].strip().equalsIgnoreCase("exit")) {
+            command.execute();
+            return true;
+        }
+        if (tokens.length == 1) {
+            commandHistory.add(tokens[0].strip().toLowerCase());
+            command.execute("");
+        } else {
+            commandHistory.add(tokens[0].strip().toLowerCase());
+            command.execute(tokens[1].strip());
+        }
+        return false;
     }
     public CollectionManager getCollectionManager() {
         return cm;

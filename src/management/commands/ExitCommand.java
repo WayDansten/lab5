@@ -15,6 +15,5 @@ public class ExitCommand implements Command{
     @Override
     public void execute(String... args) {
         System.out.println("Завершение работы приложения.");
-        Invoker.getInstance().setActuatorState(false);
     }
 }

@@ -1,3 +1,4 @@
+import exceptions.ErrorInFunctionException;
 import management.utility.Invoker;
 
 import java.io.*;
@@ -22,6 +23,10 @@ public class Main {
             }
         }
         Invoker.getInstance().getIoManager().setInteractiveMode();
-        Invoker.getInstance().launch();
+        try {
+            Invoker.getInstance().launch();
+        } catch (ErrorInFunctionException e) {
+            System.err.println("При исполнении скрипта произошла ошибка!");
+        }
     }
 }

@@ -25,9 +25,23 @@ public class ExecuteScriptCommand implements Command {
         try {
             try (BufferedInputStream bis = new BufferedInputStream(new FileInputStream(filePath))) {
                 openedScripts.add(filePath);
+                boolean end = false;
+                int lineCounter = 0;
                 Invoker.getInstance().setInScriptState(true);
                 Invoker.getInstance().getIoManager().setFileMode(bis);
-                Invoker.getInstance().launch();
+                while (!end) {
+                    if (exceptionOccurred) {
+                        break;
+                    }
+                    try {
+                        end = Invoker.getInstance().executeCommand();
+                    } catch (ErrorInFunctionException e) {
+                        System.err.println(e.getMessage());
+                        System.err.println("Ошибка в файле " + openedScripts.getLast());
+                        exceptionOccurred = true;
+                        end = true;
+                    }
+                }
                 openedScripts.removeLast();
                 if (openedScripts.isEmpty()) {
                     Invoker.getInstance().setInScriptState(false);
@@ -39,9 +53,6 @@ public class ExecuteScriptCommand implements Command {
             if (Invoker.getInstance().getInScriptState()) {
                 throw new ErrorInFunctionException("При исполнении скрипта произошла ошибка!");
             }
-        } catch (ErrorInFunctionException e) {
-            System.err.println(e.getMessage());
-            exceptionOccurred = true;
         }
     }
 }
