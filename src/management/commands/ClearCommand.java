@@ -3,7 +3,7 @@ package management.commands;
 import management.utility.CollectionManager;
 
 /**
- * Команда очищения коллекции
+ * Команда, очищающая коллекцию
  */
 
 public class ClearCommand implements Command{

@@ -28,6 +28,7 @@ public class FlatBuilder extends Builder<Flat> {
     /**
      * Собирает новый экземпляр класса Flat
      * @return Новый экземпляр класса Flat
+     * @throws ErrorInFunctionException Выбрасывается, если произошло любое другое исключение во время исполнения скрипта
      */
     @Override
     public Flat build() throws ErrorInFunctionException {
@@ -36,6 +37,7 @@ public class FlatBuilder extends Builder<Flat> {
     /**
      * Запрашивает значение поля area для класса Flat
      * @return значение area
+     * @throws ErrorInFunctionException Выбрасывается, если произошло любое другое исключение во время исполнения скрипта
      */
     public double createArea() throws ErrorInFunctionException {
         double s;
@@ -65,6 +67,7 @@ public class FlatBuilder extends Builder<Flat> {
     /**
      * Запрашивает значение поля numberOfRooms для класса Flat
      * @return значение numberOfRooms
+     * @throws ErrorInFunctionException Выбрасывается, если произошло любое другое исключение во время исполнения скрипта
      */
     public Integer createNumberOfRooms() throws ErrorInFunctionException{
         int numberOfRooms;
@@ -94,6 +97,7 @@ public class FlatBuilder extends Builder<Flat> {
     /**
      * Запрашивает значение поля name для класса Flat
      * @return значение name
+     * @throws ErrorInFunctionException Выбрасывается, если произошло любое другое исключение во время исполнения скрипта
      */
     public String createName() throws ErrorInFunctionException{
         String name;
@@ -117,6 +121,7 @@ public class FlatBuilder extends Builder<Flat> {
     /**
      * Запрашивает значение поля furnish для класса Flat
      * @return значение furnish
+     * @throws ErrorInFunctionException Выбрасывается, если произошло любое другое исключение во время исполнения скрипта
      */
     public Furnish createFurnish() throws ErrorInFunctionException{
         Furnish furnish;
@@ -147,6 +152,7 @@ public class FlatBuilder extends Builder<Flat> {
     /**
      * Запрашивает значение поля transport для класса Flat
      * @return значение transport
+     * @throws ErrorInFunctionException Выбрасывается, если произошло любое другое исключение во время исполнения скрипта
      */
     public Transport createTransport() throws ErrorInFunctionException{
         Transport transport;
@@ -176,6 +182,7 @@ public class FlatBuilder extends Builder<Flat> {
     /**
      * Запрашивает значение поля view для класса Flat
      * @return значение view
+     * @throws ErrorInFunctionException Выбрасывается, если произошло любое другое исключение во время исполнения скрипта
      */
     public View createView() throws ErrorInFunctionException{
         View view;

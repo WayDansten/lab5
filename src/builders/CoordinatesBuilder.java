@@ -22,6 +22,7 @@ public class CoordinatesBuilder extends Builder<Coordinates> {
     /**
      * Собирает новый экземпляр класса Coordinates
      * @return Новый экземпляр класса Coordinates
+     * @throws ErrorInFunctionException Выбрасывается, если произошло любое другое исключение во время исполнения скрипта
      */
     @Override
     public Coordinates build() throws ErrorInFunctionException{
@@ -31,6 +32,7 @@ public class CoordinatesBuilder extends Builder<Coordinates> {
     /**
      * Запрашивает значение поля x для класса Coordinates
      * @return значение x
+     * @throws ErrorInFunctionException Выбрасывается, если произошло любое другое исключение во время исполнения скрипта
      */
     public int createXCoordinate() throws ErrorInFunctionException{
         int x;
@@ -61,6 +63,7 @@ public class CoordinatesBuilder extends Builder<Coordinates> {
     /**
      * Запрашивает значение поля y для класса Coordinates
      * @return значение y
+     * @throws ErrorInFunctionException Выбрасывается, если произошло любое другое исключение во время исполнения скрипта
      */
     public int createYCoordinate() throws ErrorInFunctionException{
         int y;

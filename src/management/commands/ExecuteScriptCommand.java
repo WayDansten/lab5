@@ -9,7 +9,7 @@ import java.util.ArrayDeque;
 import java.util.Deque;
 
 /**
- * Исполняет скрипт с командами
+ * Команда, исполняющая скрипт
  */
 
 public class ExecuteScriptCommand implements Command {

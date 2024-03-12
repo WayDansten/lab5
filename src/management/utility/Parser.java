@@ -21,24 +21,6 @@ import static java.lang.Long.parseLong;
  */
 
 public class Parser {
-    /**
-     * Преобразует строку с числами в целочисленное значение id
-     * @param data Введенная строка
-     * @return Значение id
-     */
-    public static int parseId(String data) {
-        int id;
-        while (true) {
-            try {
-                id = parseInt(data);
-                break;
-            } catch (NumberFormatException e) {
-                System.err.println("Недопустимый тип данных! Пожалуйста, введите id заново (id - целое число):");
-                data = Invoker.getInstance().getIoManager().getReceiver().next();
-            }
-        }
-        return id;
-    }
 
     /**
      * Преобразует массив строк в новый экземпляр класса Flat

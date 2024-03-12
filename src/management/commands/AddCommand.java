@@ -6,7 +6,7 @@ import management.utility.CollectionManager;
 import management.utility.Invoker;
 
 /**
- * Команда добавления элемента в коллекцию
+ * Команда, добавляющая элемент в коллекцию
  */
 
 public class AddCommand implements Command {

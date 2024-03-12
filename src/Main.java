@@ -18,7 +18,7 @@ public class Main {
                     break;
                 }
             } catch (IOException e) {
-                System.err.println("Файл не найден! Пожалуйста, введите путь до файла заново:");
+                System.err.println("Файл не найден или недостаточно прав! Пожалуйста, введите путь до файла заново:");
                 filePath = Invoker.getInstance().getIoManager().getReceiver().next();
             }
         }

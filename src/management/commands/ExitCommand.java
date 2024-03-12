@@ -1,10 +1,9 @@
 package management.commands;
 
 import management.utility.CollectionManager;
-import management.utility.Invoker;
 
 /**
- * Завершает работу приложения
+ * Команда, завершающая работу приложения
  */
 
 public class ExitCommand implements Command{

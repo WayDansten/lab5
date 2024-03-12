@@ -3,7 +3,7 @@ package management.commands;
 import management.utility.CollectionManager;
 
 /**
- * Выводит информацию по всем командам
+ * Команда, выводящая информацию по всем командам
  */
 
 public class HelpCommand implements Command {
@@ -24,12 +24,12 @@ public class HelpCommand implements Command {
                 save - сохраняет коллекцию в файл
                 execute_script file_name - считывает и запускает скрипт из указанного файла
                 exit - завершает работу в программы (без сохранения в файл)
-                remove_greater - удаляет из коллекции все элементы, превышающие заданный (по значению поля area)
-                remove_lower - удаляет из коллекции все элементы, меньшие заданного (по значению поля area)
+                remove_greater - удаляет из коллекции все элементы, превышающие заданный (по значению поля id)
+                remove_lower - удаляет из коллекции все элементы, меньшие заданного (по значению поля id)
                 history - выводит последние 10 команд без аргументов
-                count_greater_than_house house - выводит количество элементов, значение поля house которых больше заданного
+                count_greater_than_house house - выводит количество элементов, значение поля house (поля House.year) которых больше заданного
                 filter_contains_name name - выводит элементы, значение поля name которых содержит введенную подстроку
-                filter_less_than_furnish furnish - выводит элементы, значение поля furnish которых меньше введенного
+                filter_less_than_furnish furnish - выводит элементы, значение поля furnish (константы Furnish.quality) которых меньше введенного
                 """);
     }
 }

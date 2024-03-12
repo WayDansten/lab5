@@ -29,6 +29,14 @@ public class Flat implements Comparable<Flat> {
         this.view = view;
         this.transport = transport;
         this.house = house;
+        if (!usedIds.isEmpty()) {
+            for (int i = 1; i < usedIds.getLast(); i++) {
+                if (!usedIds.contains(i)) {
+                    addAvailableId(i);
+                }
+            }
+            nextNewId = usedIds.getLast() + 1;
+        }
         if (availableIds.isEmpty()) {
             id = nextNewId;
             nextNewId++;
@@ -106,7 +114,7 @@ public class Flat implements Comparable<Flat> {
 
     @Override
     public int compareTo(Flat flat) {
-        return (int) (area - flat.getArea());
+        return (int) (id - flat.getId());
     }
     public static void addAvailableId(int id) {
         availableIds.add(id);
@@ -119,6 +127,12 @@ public class Flat implements Comparable<Flat> {
         } else {
             usedIds.addFirst(id);
         }
+    }
+    public static void removeAvailableId(int id) {
+        availableIds.remove(id);
+    }
+    public static void removeUsedId(int id) {
+        usedIds.remove(id);
     }
     public static ArrayDeque<Integer> getUsedIds() {
         return usedIds;

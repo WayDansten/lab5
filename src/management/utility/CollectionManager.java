@@ -39,6 +39,8 @@ public class CollectionManager {
             if (flat.getId() == id) {
                 foundId = true;
                 flats.remove(flat);
+                Flat.getUsedIds().remove(id);
+                Flat.addAvailableId(id);
                 System.out.println("Квартира успешно удалена!");
                 break;
             }
@@ -77,50 +79,52 @@ public class CollectionManager {
     }
 
     /**
-     * Удаляет из коллекции все элементы, значение поля area которых больше, чем значение area у элемента с указанным id
+     * Удаляет из коллекции все элементы, значение поля id которых больше, чем значение id у элемента с указанным id
      * @param id id элемента, с которым проводится сравнение
+     * @throws ErrorInFunctionException Выбрасывается, если произошло любое другое исключение во время исполнения скрипта
      */
     public void removeGreater(int id) throws ErrorInFunctionException{
-        double comparedArea = 0;
+        boolean foundFlat = false;
         for (Flat flat: flats) {
             if (flat.getId() == id) {
-                comparedArea = flat.getArea();
-            }
-            if (comparedArea != 0 && flat.getArea() > comparedArea) {
-                flats.remove(flat);
+                foundFlat = true;
+                break;
             }
         }
-        if (comparedArea == 0) {
+        if (!foundFlat) {
             System.err.println("Квартира с данным id не найдена!");
             if (Invoker.getInstance().getInScriptState()) {
                 throw new ErrorInFunctionException("При исполнении скрипта произошла ошибка!");
+            }
+        } else {
+            flats.removeIf(flat -> flat.getId() > id);
+            for (int i = id + 1; i <= Flat.getUsedIds().getLast(); i++) {
+                Flat.removeUsedId(i);
             }
         }
     }
     /**
      * Удаляет из коллекции все элементы, значение поля area которых меньше, чем значение area у элемента с указанным id
      * @param id id элемента, с которым проводится сравнение
+     * @throws ErrorInFunctionException Выбрасывается, если произошло любое другое исключение во время исполнения скрипта
      */
     public void removeLower(int id) throws ErrorInFunctionException{
-        double comparedArea = 0;
+        boolean foundFlat = false;
         for (Flat flat: flats) {
             if (flat.getId() == id) {
-                comparedArea = flat.getArea();
+                foundFlat = true;
                 break;
             }
         }
-        if (comparedArea == 0) {
+        if (!foundFlat) {
             System.err.println("Квартира с данным id не найдена!");
             if (Invoker.getInstance().getInScriptState()) {
                 throw new ErrorInFunctionException("При исполнении скрипта произошла ошибка!");
             }
         } else {
-            for (Flat flat : flats) {
-                if (flat.getArea() < comparedArea) {
-                    flats.remove(flat);
-                } else {
-                    break;
-                }
+            flats.removeIf(flat -> flat.getId() < id);
+            for (int i = 1; i < id; i++) {
+                Flat.removeUsedId(i);
             }
         }
     }
@@ -128,6 +132,7 @@ public class CollectionManager {
     /**
      * Заполняет коллекцию значениями из файла в формате .csv
      * @param bis Буферизированный поток данных из файла
+     * @throws IOException Выбрасывается в случае, если файла не существует или не хватае прав для считывания информации из него
      */
     public void fillCollection(BufferedInputStream bis) throws IOException {
         Invoker.getInstance().getIoManager().setFileMode(bis);
@@ -140,20 +145,14 @@ public class CollectionManager {
             } catch (NumberFormatException e) {
                 System.err.println("Некорректная строка данных! Квартира добавлена не будет");
             }
-        }
-        if (!Flat.getUsedIds().isEmpty()) {
-            for (int id = 1; Flat.getUsedIds().getLast() > id; id++) {
-                if (!Flat.getUsedIds().contains(id)) {
-                    Flat.getAvailableIds().add(id);
-                }
-            }
+        Validator.validateAll(flats);
         }
     }
 
     /**
      * Сохраняет коллекцию в файл в формате .csv
      * @param file Файл, в который производится сохранение
-     * @throws IOException Выбрасывается, если файл не найден
+     * @throws IOException Выбрасывается, если не хватает прав для записи в файл
      */
     public void saveCollection(File file) throws IOException {
         try (FileWriter writer = new FileWriter(file)) {
@@ -191,6 +190,7 @@ public class CollectionManager {
     /**
      * Обновляет поля элемента коллекции с указанным id в интерактивном режиме
      * @param id id элемента, с которым производится сравнение
+     * @throws ErrorInFunctionException Выбрасывается, если произошло любое другое исключение во время исполнения скрипта
      */
     public void update(int id) throws ErrorInFunctionException{
         boolean foundFlat = false;
@@ -209,6 +209,18 @@ public class CollectionManager {
             System.err.println("Квартира с данным id не найдена!");
             if (Invoker.getInstance().getInScriptState()) {
                 throw new ErrorInFunctionException("При исполнении скрипта произошла ошибка!");
+            }
+        }
+    }
+
+    /**
+     * Выводит все элементы коллекции, поле name которых содержит введенную подстроку
+     * @param searchedString Введенная подстрока
+     */
+    public void filterContainsName(String searchedString) {
+        for (Flat flat : flats) {
+            if (flat.getName().contains(searchedString)) {
+                System.out.println(flat);
             }
         }
     }

@@ -3,7 +3,7 @@ package management.commands;
 import management.utility.CollectionManager;
 
 /**
- * Выводит коллекцию в строковом представлении
+ * Команда, выводящая коллекцию в строковом представлении
  */
 
 public class ShowCommand implements Command{

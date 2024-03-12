@@ -4,7 +4,7 @@ import management.utility.CollectionManager;
 import management.utility.Invoker;
 
 /**
- * Выводит имена последних 10 команд
+ * Команда, выводящая имена последних 10 команд
  */
 
 public class HistoryCommand implements Command {

@@ -7,7 +7,7 @@ import management.utility.Invoker;
 import stored_classes.enums.Furnish;
 
 /**
- * Выводит все элементы коллекции, значение поля furnish (константы Furnish.quality) меньше указанного
+ * Команда, выводящая все элементы коллекции, значение поля furnish (константы Furnish.quality) которых меньше указанного
  */
 
 public class FilterLessThanFurnishCommand implements Command{
@@ -17,7 +17,15 @@ public class FilterLessThanFurnishCommand implements Command{
     }
     @Override
     public void execute(String... args) throws ErrorInFunctionException{
-        Furnish furnish = Furnish.naming.get(args[0]);;
+        System.out.println("Виды мебели:");
+        System.out.println("""
+                NONE (0) - мебель отсутствует
+                LITTLE (2) - небольшое количество мебели
+                BAD (1) - низкокачественная мебель
+                FINE (3) - качественная мебель
+                DESIGNER (4) - дизайнерская мебель
+                """);
+        Furnish furnish = Furnish.naming.get(args[0].toUpperCase());
         while (true) {
             try {
                 if (furnish == null) {
@@ -29,7 +37,7 @@ public class FilterLessThanFurnishCommand implements Command{
                 if (Invoker.getInstance().getInScriptState()) {
                     throw new ErrorInFunctionException("При исполнении скрипта произошла ошибка!");
                 }
-                furnish = Furnish.naming.get(Invoker.getInstance().getIoManager().getReceiver().next());
+                furnish = Furnish.naming.get(Invoker.getInstance().getIoManager().getReceiver().next().toUpperCase());
             }
         }
         cm.filterLessThanFurnish(furnish.getQuality());

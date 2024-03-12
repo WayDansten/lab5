@@ -8,7 +8,7 @@ import java.io.File;
 import java.io.IOException;
 
 /**
- * Сохраняет коллекцию в файл в формате .csv
+ * Команда, сохраняющая коллекцию в файл в формате .csv
  */
 
 public class SaveCommand implements Command {
@@ -23,7 +23,7 @@ public class SaveCommand implements Command {
             File file = new File(filePath);
             cm.saveCollection(file);
         } catch (IOException e) {
-            System.err.println("Файл не найден!");
+            System.err.println("Недостаточно прав для записи в файл!");
             if (Invoker.getInstance().getInScriptState()) {
                 throw new ErrorInFunctionException("При исполнении скрипта произошла ошибка!");
             }

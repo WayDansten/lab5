@@ -22,6 +22,7 @@ public class HouseBuilder extends Builder<House> {
     /**
      * Собирает новый экземпляр класса House
      * @return Новый экземпляр класса House
+     * @throws ErrorInFunctionException Выбрасывается, если произошло любое другое исключение во время исполнения скрипта
      */
     @Override
     public House build() throws ErrorInFunctionException {
@@ -44,6 +45,7 @@ public class HouseBuilder extends Builder<House> {
     /**
      * Запрашивает значение поля year для класса House
      * @return значение year
+     * @throws ErrorInFunctionException Выбрасывается, если произошло любое другое исключение во время исполнения скрипта
      */
     public long createYear() throws ErrorInFunctionException{
         long year;
@@ -73,6 +75,7 @@ public class HouseBuilder extends Builder<House> {
     /**
      * Запрашивает значение поля numberOfFloors для класса House
      * @return значение numberOfFloors
+     * @throws ErrorInFunctionException Выбрасывается, если произошло любое другое исключение во время исполнения скрипта
      */
     public long createNumberOfFloors() throws ErrorInFunctionException {
         long numberOfFloors;
@@ -102,6 +105,7 @@ public class HouseBuilder extends Builder<House> {
     /**
      * Запрашивает значение поля numberOfLifts для класса House
      * @return значение numberOfLifts
+     * @throws ErrorInFunctionException Выбрасывается, если произошло любое другое исключение во время исполнения скрипта
      */
     public Integer createNumberOfLifts() throws ErrorInFunctionException{
         int numberOfLifts;

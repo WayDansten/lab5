@@ -2,12 +2,13 @@ package management.commands;
 
 import exceptions.ErrorInFunctionException;
 import management.utility.CollectionManager;
+import management.utility.Invoker;
 import management.utility.Parser;
 
 import static java.lang.Integer.parseInt;
 
 /**
- * Удаляет элемент из коллекции по его id
+ * Команда, удаляющая элемент из коллекции по его id
  */
 
 public class RemoveByIdCommand implements Command {
@@ -18,6 +19,13 @@ public class RemoveByIdCommand implements Command {
     @Override
     public void execute(String... args) throws ErrorInFunctionException {
         String input = args[0];
-        cm.removeById(Parser.parseId(input));
+        try {
+            cm.removeById(parseInt(input));
+        } catch (NumberFormatException e) {
+            System.err.println("Недопустимый тип данных!");
+            if (Invoker.getInstance().getInScriptState()) {
+                throw new ErrorInFunctionException("При исполнении скрипта произошла ошибка!");
+            }
+        }
     }
 }
