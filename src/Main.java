@@ -10,7 +10,12 @@ import static management.utility.Parser.parseFlat;
 
 public class Main {
     public static void main(String[] args){
-        String filePath = args[0];
+        String filePath;
+        if (args.length == 0) {
+            filePath = "";
+        } else {
+            filePath = args[0];
+        }
         while (true) {
             try {
                 try (BufferedInputStream bis = new BufferedInputStream(new FileInputStream(filePath), 1024)) {
