@@ -39,8 +39,7 @@ public class CollectionManager {
             if (flat.getId() == id) {
                 foundId = true;
                 flats.remove(flat);
-                Flat.getUsedIds().remove(id);
-                Flat.addAvailableId(id);
+                Flat.removeUsedId(id);
                 System.out.println("Квартира успешно удалена!");
                 break;
             }
@@ -55,8 +54,6 @@ public class CollectionManager {
      */
     public void clear() {
         Flat.clearUsedIds();
-        Flat.clearAvailableIds();
-        Flat.setNextNewId(1);
         flats.clear();
     }
 
@@ -98,8 +95,10 @@ public class CollectionManager {
             }
         } else {
             flats.removeIf(flat -> flat.getId() > id);
-            for (int i = id + 1; i <= Flat.getUsedIds().getLast(); i++) {
-                Flat.removeUsedId(i);
+            for (int i : Flat.getUsedIds()) {
+                if (i > id) {
+                    Flat.removeUsedId(i);
+                }
             }
         }
     }
@@ -123,8 +122,12 @@ public class CollectionManager {
             }
         } else {
             flats.removeIf(flat -> flat.getId() < id);
-            for (int i = 1; i < id; i++) {
-                Flat.removeUsedId(i);
+            for (int i : Flat.getUsedIds()) {
+                if (i < id) {
+                    Flat.removeUsedId(i);
+                } else {
+                    break;
+                }
             }
         }
     }

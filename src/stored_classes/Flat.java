@@ -5,9 +5,7 @@ import stored_classes.enums.*;
 import java.util.*;
 
 public class Flat implements Comparable<Flat> {
-    private static int nextNewId = 1;
-    private static final ArrayDeque<Integer> availableIds = new ArrayDeque<>();
-    private static final ArrayDeque<Integer> usedIds = new ArrayDeque<>();
+    private static final HashSet<Integer> usedIds = new HashSet<>();
     private final int id; //Значение поля должно быть больше 0, Значение этого поля должно быть уникальным, Значение этого поля должно генерироваться автоматически
     private String name; //Поле не может быть null, Строка не может быть пустой
     private Coordinates coordinates; //Поле не может быть null
@@ -29,22 +27,14 @@ public class Flat implements Comparable<Flat> {
         this.view = view;
         this.transport = transport;
         this.house = house;
-        if (!usedIds.isEmpty()) {
-            for (int i = 1; i < usedIds.getLast(); i++) {
-                if (!usedIds.contains(i)) {
-                    addAvailableId(i);
-                }
+        int generatedId;
+        while (true) {
+            generatedId = new Random().nextInt(Integer.MAX_VALUE);
+            if (!usedIds.contains(generatedId)) {
+                break;
             }
-            nextNewId = usedIds.getLast() + 1;
         }
-        if (availableIds.isEmpty()) {
-            id = nextNewId;
-            nextNewId++;
-        } else {
-            id = availableIds.pop();
-            addUsedId(id);
-            nextNewId = usedIds.getLast() + 1;
-            }
+        id = generatedId;
     }
 
     public Flat(int id, String name, Coordinates coordinates, java.util.Date creationDate, double area, Integer numberOfRooms, Furnish furnish, View view, Transport transport, House house) {
@@ -59,7 +49,6 @@ public class Flat implements Comparable<Flat> {
         this.transport = transport;
         this.house = house;
         addUsedId(id);
-        nextNewId = usedIds.getLast() + 1;
     }
 
     public int getId() {
@@ -116,38 +105,17 @@ public class Flat implements Comparable<Flat> {
     public int compareTo(Flat flat) {
         return (int) (id - flat.getId());
     }
-    public static void addAvailableId(int id) {
-        availableIds.add(id);
-    }
     public static void addUsedId(int id) {
-        if (usedIds.isEmpty()) {
             usedIds.add(id);
-        } else if (usedIds.getLast() < id) {
-            usedIds.addLast(id);
-        } else {
-            usedIds.addFirst(id);
         }
-    }
-    public static void removeAvailableId(int id) {
-        availableIds.remove(id);
-    }
     public static void removeUsedId(int id) {
         usedIds.remove(id);
-    }
-    public static ArrayDeque<Integer> getUsedIds() {
-        return usedIds;
-    }
-    public static ArrayDeque<Integer> getAvailableIds() {
-        return availableIds;
     }
     public static void clearUsedIds() {
         usedIds.clear();
     }
-    public static void clearAvailableIds() {
-        availableIds.clear();
-    }
-    public static void setNextNewId(int id) {
-        nextNewId = id;
+    public static HashSet<Integer> getUsedIds() {
+        return usedIds;
     }
     @Override
     public String toString() {

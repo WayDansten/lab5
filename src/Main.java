@@ -1,5 +1,6 @@
 import exceptions.ErrorInFunctionException;
 import management.utility.Invoker;
+import stored_classes.Flat;
 
 import java.io.*;
 import java.text.ParseException;
